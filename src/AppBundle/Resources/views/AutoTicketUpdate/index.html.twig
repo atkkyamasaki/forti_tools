@@ -1,0 +1,250 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}Auto Ticket Update - {{ parent() }}{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="/css/AutoTicketUpdate/main.css">
+<script src="/js/AutoTicketUpdate/main.js"></script>
+
+<div class="container_title">
+    <h1 class=><i class="fa fa-tachometer" aria-hidden="true"></i>Auto Ticket Update Tool</h>
+</div>
+
+<div id="tab_display">
+    <ul>
+        <li><a href="#tab1" id="tab1_a" class="current">Case Status</a></li>
+        <li><a href="#tab2" id="tab2_a" class="">TAC Status</a></li>
+        <li><a href="#tab3" id="tab3_a" class="">Logs</a></li>
+    </ul>
+    <div id="contents">
+        <div id="tab1">
+            <div class="container_ticket">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <caption style="caption-side: top">Case Status</caption>
+                        <thead>
+                            <tr class="bg-primary" style="color: white;">
+                                <th class="hide">ID</th>
+                                <th>Case ID</th>
+                                <th><i class="fa fa-id-card-o hedder_icon" aria-hidden="true"></i>Title</th>
+                                <th>Priority</th>
+                                <th>Country</th>
+                                <th>Queue</th>
+                                <th>TAC</th>
+                                <th>Model</th>
+                                <th><i class="fa fa-university hedder_icon" aria-hidden="true"></i>Company</th>
+                                <th class="hide">Assignee</th>
+                                <th style="min-width: 200px;"><i class="fa fa-user-circle-o hedder_icon" aria-hidden="true"></i>Name</th>
+                                <th class="hide">mv_comp</th>
+                                <th class="hide">q_group</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cases in pool0 %}
+                            <tr>
+                                <td class="hide">{{ cases.id }}</i>
+                                </td>
+                                <td class="case_id"><a href="https://forticare.fortinet.com/CustomerSupport/default.aspx?tid={{ cases.caseId }}" target="_blank">{{ cases.caseId }}</a><i class="fa fa-times-circle case_delete" aria-hidden="true"></i></td>
+                                <td>{{ cases.title }}</td>
+                                <td>{{ cases.priority }}</td>
+                                <td>{{ cases.country }}</td>
+                                <td>{{ cases.queue }}</td>
+                                <td>{{ cases.tac }}</td>
+                                <td>{{ cases.model }}</td>
+                                <td>{{ cases.company }}</td>
+                                <td class="case_assignee hide">{{ cases.assignee }}</td>
+                                {% if cases.name %}
+                                <td>{{ cases.name }}
+                                    <span class="change_assign_icon">Change</span>
+                                    <div class="hide">
+                                        <form>
+                                            <select class="manual_assign_update" name="manual_assign_update">
+                                                <option selected disabled>担当者を選択</option>
+                                                {% for name in assignee %}
+                                                <option value="{{ name.id }}">{{ name.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </form>
+                                    </div>
+                                </td>
+                                {% else %}
+                                <td>
+                                    <span class="not_assign_icon">Not Assign</span>
+                                    <div class="hide">
+                                        <form>
+                                            <select class="manual_assign_create" name="manual_assign_create">
+                                                <option selected disabled>担当者を選択</option>
+                                                {% for name in assignee %}
+                                                <option value="{{ name.id }}">{{ name.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </form>
+                                    </div>
+                                </td>
+                                {% endif %}
+                                <td class="hide">{{ cases.mvComp }}</td>
+                                <td class="hide">{{ cases.qGroup }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="container_script">
+                <p class="operation_hedder"><i class="fa fa-cogs" aria-hidden="true"></i>Operation</p>              
+                <div>
+                    <div class="container_auto_assign">
+                        <span>Auto Assign :  </span>
+                        <button type="button" id="auto_assign" class="script_submit_button">Auto Assign<i class="fa fa-user-plus button_icon" aria-hidden="true"></i></button>
+                        <span> / </span>
+                        <button type="button" id="case_move" class="script_submit_button">Case Move<i class="fa fa-cog button_icon" aria-hidden="true"></i></button>
+                    </div>
+                    <div>
+                        <span>Next Assigner Check :  </span><button type="submit" id="next_assign" class="script_submit_button">Update<i class="fa fa-refresh button_icon" aria-hidden="true"></i></button>
+                        <div class="table_next_assign hide">
+                            <table id="table_next_assign" class="table table-hover table-bordered">
+                                <tr>
+                                    <th class="bg-primary" style="color: white; width: 200px;">Next assginee</th>
+                                    <td id="next_assign_name" style="width: 250px;">
+                                    {% if next_assign is defined %}
+                                        {{ next_assign }}
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-primary" style="color: white;">Next assginee (high_pri)</th>
+                                    <td id="next_high_assign_name">
+                                    {% if next_high_assign is defined %}
+                                        {{ next_high_assign }}
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-primary" style="color: white;">Unassigned ticket 数</th>
+                                    <td id="next_assign_unassign_num">
+                                    {% if unassign_num is defined %}
+                                        {{ unassign_num }}
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab2">
+            <div class="container_person">
+                <div class="table_person">
+                    <table id="table_person" class="table table-hover">
+                        <caption style="caption-side: top;">TAC Status</caption>
+                        <thead>
+                            <tr class="bg-primary" style="color: white;">
+                                <th class="hide">ID</th>
+                                <th><i class="fa fa-user-circle-o hedder_icon" aria-hidden="true"></i>名前</th>
+                                <th><i class="fa fa-tags hedder_icon" aria-hidden="true"></i>対応件数</th>
+                                <th><i class="fa fa-bar-chart hedder_icon" aria-hidden="true"></i>負荷状況</th>
+                                <th><i class="fa fa-arrow-circle-up hedder_icon" aria-hidden="true"></i>High Priority Case</th>
+                                <th class="hide">出勤状況</th>
+                                <th class="hide">対応不可フラグ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set i = 1 %}
+                            {% for tac in assignee %}
+                            <tr>
+                                <td class="table_tac_id hide">{{ tac.id }}</td>
+                                <td>
+                                    {% if tac.pto == 0 %}
+                                    <span id="tac_pto_icon_{{ i }}" class="attend_icon_green">●</span>
+                                    {% elseif tac.pto == 1 %}
+                                    <span id="tac_pto_icon_{{ i }}" class="attend_icon_red">●</span>
+                                    {% endif %}
+                                    <span class="table_tac_name table_tac_name_{{ i }}">{{ tac.name }}</span>
+                                    {% if tac.da == 1 %}
+                                    <span id="tac_da_icon_{{ i }}" class="fa fa-ban" style="color: red;"></span>
+                                    {% else %}
+                                    <span id="tac_da_icon_{{ i }}" class="fa fa-ban hide" style="color: red;"></span>
+                                    {% endif %}
+                                    <div class="assignee_status hide">
+                                        <form>
+                                            <p>出勤状況　　：
+                                                <select class="assignee_pulldown_box pto_status" name="pto_status">
+                                                    <option value="0">出勤</option>
+                                                    <option value="1">PTO</option>
+                                                </select>
+                                                <i class="fa fa-window-close-o assignee_statu_close_icon" aria-hidden="true"></i>
+                                            </p>
+                                            <p>アサイン可否 ：
+                                                <select class="assignee_pulldown_box da_status" name="da_status">
+                                                    <option value="0">OK</option>
+                                                    <option value="1">Don't assign</option>
+                                                </select>
+                                            </p>
+                                            <button type="button" class="assignee_status_update">Update<i class="fa fa-refresh button_icon" aria-hidden="true"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="table_tac_laps table_tac_laps_{{ i }}">{{ tac.laps }}</td>
+                                <td class="table_tac_point table_tac_point_{{ i }}">{{ tac.point }}</td>
+                                <td class="table_tac_highpri table_tac_highpri_{{ i }}">{{ tac.highPri }}</td>
+                                <td class="table_tac_pto hide">{{ tac.pto }}</td>
+                                <td class="table_tac_da hide">{{ tac.da }}</td>
+                            </tr>
+                            {% set i = i + 1 %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="background-block_float">
+                    <div id="highchart_summary_tac"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3">
+            <div class="container_log">
+            <span>Log File Download :  </span>
+            <button type="button" id="log_download" class="log_download_button">Download<i class="fa fa-download button_icon" aria-hidden="true"></i></button>
+                <div class="table_log">
+                    <table id="table_log" class="table table-hover">
+                        <caption style="caption-side: top;">Logs</caption>
+                        <thead>
+                            <tr class="bg-primary" style="color: white;">
+                                <th><i class="fa fa-clock-o hedder_icon" aria-hidden="true"></i>TIME</th>
+                                <th><i class="fa fa-cogs hedder_icon" aria-hidden="true"></i>COMMAND</th>
+                                <th><i class="fa fa-th-list hedder_icon" aria-hidden="true"></i>RESULT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 
+<div class="background-block_float">
+    <div id="container_summary_case" style="min-width: 400px; max-width: 600px; height: 300px; margin: 0 auto"></div>
+</div>
+<div class="background-block_float">
+    <div id="container_summary_total" style="min-width: 400px; max-width: 600px; height: 300px; margin: 0 auto"></div>
+</div>
+-->
+
+
+<p id="page-top"><a href="#wrap">PAGE TOP</a></p>
+
+
+<div class="all_loading hide"></div>
+
+
+{% endblock %}

@@ -1,0 +1,108 @@
+@charset "UTF-8";
+body { font-size: 0.8em; }
+
+.container_title, .container_ticket, .container_script, .container_person, .container_log { padding: 8px 4px 4px 8px; margin: 8px 8px 0 8px; }
+
+.container_title > h1 { font-size: 1.5em; background-color: #0275d8; color: white; padding: 12px 24px; width: 350px; }
+
+.container_title > h1 > i { padding: 0 12px 0 0; }
+
+/* Tab 表示用 CSS */
+#tab_display { padding: 0 16px; }
+
+#tab_display > ul > li { float: left; list-style-type: none; width: 25%; max-width: 160px; }
+
+#tab_display > ul > li > a { font-weight: bold; color: white; text-decoration: none; display: block; padding: 8px 16px; text-align: center; width: 100%; background: #0275d8; border: 6px solid #0275d8; border-bottom: none; }
+
+#tab_display > ul > li > a:hover { opacity: 0.5; }
+
+#tab_display > ul > li > a.current { background: white; color: black; }
+
+#tab_display #contents { clear: both; }
+
+/* Tab1 用 */
+.container_ticket { min-width: 1250px; }
+
+.container_ticket .hedder_icon { padding: 0 4px 0 0; }
+
+.container_script { padding: 8px; margin: 8px 8px 8px 80px; width: 500px; position: relative; }
+
+.container_script > div { border: 2px dashed lightgray; padding: 32px 16px 16px 16px; position: absolute; width: 500px; top: 30px; }
+
+.operation_hedder { position: absolute; font-size: 1.5em; background-color: #0275d8; color: white; padding: 6px 24px 6px 12px; margin-left: 32px; z-index: 100; }
+
+.operation_hedder i { padding: 0px 4px; }
+
+.container_auto_assign { padding-bottom: 16px; }
+
+.container_script .button_icon { padding: 0 4px; }
+
+.case_delete { color: red; font-size: 1.2em; padding: 0 0 0 4px; }
+
+.case_delete:hover { opacity: 0.5; }
+
+.case_delete:active { box-shadow: 2px 2px rgba(0, 0, 0, 0.4); }
+
+.table_next_assign { width: 480px; padding: 8px 8px 0 24px; }
+
+.not_assign_icon { background-color: #d9534f; color: white; padding: 6px; border-radius: 4px; font-size: 0.8em; box-shadow: 2px 2px rgba(0, 0, 0, 0.4); }
+
+.not_assign_icon:hover { opacity: 0.7; }
+
+.change_assign_icon, .script_submit_button, .log_download_button { background-color: #0275d8; color: white; padding: 6px; border-radius: 4px; font-size: 0.8em; }
+
+.change_assign_icon:hover, .script_submit_button:hover, .log_download_button:hover { opacity: 0.7; }
+
+.manual_assign_create, .manual_assign_update { border-radius: 4px; }
+
+.attend_icon_green { color: lightgreen; }
+
+.attend_icon_red { color: red; }
+
+/* Tab2 用 */
+.container_person { /*width: 750px;*/ }
+
+.table_person { display: inline-block; width: 610px; float: left; }
+
+#table_person { table-layout: fixed; }
+
+#table_person thead th { border: 1px solid; }
+
+#table_person th:nth-child(2) { width: 180px; }
+
+#table_person th:nth-child(3) { width: 80px; text-align: center; }
+
+#table_person th:nth-child(4) { width: 80px; }
+
+#table_person th:nth-child(5) { width: 125px; }
+
+#table_person td:nth-child(n+3):nth-child(-n+5) { text-align: center; }
+
+#table_person .hedder_icon { padding: 0 4px 0 0; }
+
+.table_tac_name:hover { opacity: 0.5; }
+
+.assignee_status { position: absolute; border: 1px solid; border-radius: 4px; padding: 10px; background-color: white; }
+
+.assignee_statu_close_icon { padding: 4px; }
+
+.assignee_statu_close_icon:hover { opacity: 0.5; }
+
+.assignee_pulldown_box { width: 150px; border-radius: 4px; }
+
+.assignee_status_update { background-color: #0275d8; color: white; padding: 6px; border-radius: 4px; font-size: 0.8em; }
+
+.assignee_status_update:hover { opacity: 0.7; }
+
+.assignee_status_update > i { padding: 6px; }
+
+.background-block_float { width: 50%; min-width: 500px; float: left; background-color: gainsboro; padding: 8px; margin: 88px 0 0 24px; box-shadow: 6px 6px rgba(0, 0, 0, 0.4); }
+
+/* Table3 用 */
+.container_log .button_icon { padding: 0 4px; }
+
+#table_log .hedder_icon { padding: 0 4px 0 0; }
+
+#table_log th:nth-child(1) { width: 200px; }
+
+#table_log th:nth-child(2) { width: 200px; }

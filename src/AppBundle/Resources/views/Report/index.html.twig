@@ -1,0 +1,125 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}{{ product }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="border-block">
+    <p class="title">{{ product }} ({{ version }}) - WebUI Auto Test Repoter</p>
+</div>
+
+<div class="background-block_float">
+    <div id="container_summary_case" style="min-width: 400px; max-width: 600px; height: 300px; margin: 0 auto"></div>
+</div>
+<div class="background-block_float">
+    <div id="container_summary_total" style="min-width: 400px; max-width: 600px; height: 300px; margin: 0 auto"></div>
+</div>
+<div class="background-block_float">
+    <div id="container_summary_result" style="min-width: 400px; max-width: 600px; height: 300px; margin: 0 auto"></div>
+</div>
+
+{% set i = 0 %}
+{% set j = 0 %}
+{% set k = 0 %}
+<div class="border-block_float">
+    <div>
+        {% if product == 'test' %}
+        <form action="/{{ product }}/{{version}}" method="get">
+            <input type="file" name="zip_upload_btn">
+            <input id="test_upload" type="submit" name="upload" value="Upload" disabled="disabled">
+        </form>
+        <input id="zip_upload_btn" type="hidden" value="zip_upload_btn">
+        {% else %}
+        <span id="zip_download_btn" class="button">Summary Download</span>
+        {% endif %}
+    </div>
+    <div>
+        <span class="all_expand button">Expand All</span><span class="all_collapse button">Collapse All</span>
+    </div>
+<ul>
+    {% for features in result_data %}
+    <div class="border-feature">
+    <li id="feature_{{ j }}" class="li_feature" data-target="li_feature_{{ j }}"><i class="fa fa-chevron-right" aria-hidden="true"></i> Feature: {{ features.name }}
+    <span class="summary_step_passed">{{ feature_summary_total[features.name].passed }}</span>
+    <span class="summary_step_failed">{{ feature_summary_total[features.name].failed }}</span>
+    <span class="summary_step_pending">{{ feature_summary_total[features.name].pending }}</span>
+    <span class="summary_step_skipped">{{ feature_summary_total[features.name].skipped }}</span>
+    </li>
+
+    <div id="container_feature{{ j }}_summary" style="min-width: 300px; max-width: 600px; height: 250px; margin: 0 auto"></div>
+
+    <ul id="li_feature_{{ j }}" style="display: none;">
+        {% for scenarios in features.elements %}
+        <li id="scenario_{{ k }}" class="li_scenario" data-target="li_scenario_{{ k }}"><i class="fa fa-chevron-down" aria-hidden="true"></i> Scenario: {{ scenarios.name }}
+        <span class="summary_step_passed">{{ senario_summary_total[features.name][scenarios.name].passed }}</span>
+        <span class="summary_step_failed">{{ senario_summary_total[features.name][scenarios.name].failed }}</span>
+        <span class="summary_step_pending">{{ senario_summary_total[features.name][scenarios.name].pending }}</span>
+        <span class="summary_step_skipped">{{ senario_summary_total[features.name][scenarios.name].skipped }}</span>
+        </li>
+
+        <ul id="li_scenario_{{ k }}">
+            {% for steps in scenarios.steps %}
+
+                {% if steps.result.status == 'passed' %}
+                {% set time = steps.result.duration/1000000000 %}
+                <li class="li_step"><p class="step_name"><span class="result_step_passed"><i class="fa fa-check" aria-hidden="true"></i></span>{{ steps.keyword }} {{ steps.name }}<span class="result_step_duration">{{ time | number_format(1) }} s</span></p></li>
+
+                {% elseif steps.result.status == 'failed' %}
+                {% set time = steps.result.duration/1000000000 %}
+                <li class="li_step"><p class="step_name"><span class="result_step_failed"><i class="fa fa-times" aria-hidden="true"></i></span>{{ steps.keyword }} {{ steps.name }}<span class="result_step_duration">{{ time | number_format(1) }} s</span></p></li>
+                <li class="result_step_err_message">{{ steps.result.error_message }}</li>
+
+                {% elseif steps.result.status == 'skipped' %}
+                <li class="li_step"><p class="step_name"><span class="result_step_skipped"><i class="fa fa-minus" aria-hidden="true"></i></span>{{ steps.keyword }} {{ steps.name }}</p></li>
+
+                {% elseif steps.result.status == 'pending' %}
+                <li class="li_step"><p class="step_name"><span class="result_step_pending"><i class="fa fa-minus" aria-hidden="true"></i></span>{{ steps.keyword }} {{ steps.name }}</p></li>
+
+                {% endif %}
+                <ul class="result_step_screenshot">
+                    {% if steps.name == 'I take screenshot' %}
+                    {% if steps.result.status == 'passed' or steps.result.status == 'failed' %}
+                    <li>
+                        <a href="/image/{{ product }}/{{ version }}/{{ cycle(images, i) }}"><img class="imag_screenshot" src="/image/{{ product }}/{{ version }}/{{ cycle(images, i) }}" width="300" alt="screenshot"></a>
+                    </li>
+                    {% set i = i + 1 %}
+                    {% endif %}
+                    {% endif %}
+                </ul>
+            {% endfor %}
+        </ul>
+
+        {% set k = k + 1 %}
+        {% endfor %}
+        </ul>
+    {% set j = j + 1 %}
+    </div>
+    {% endfor %}
+    </ul>
+</div>
+
+<p id="page-top"><a href="#wrap">PAGE TOP</a></p>
+
+
+
+<div class="hide">
+<p id='hide_product'>{{ product }}</p>
+<p id='hide_version'>{{ version }}</p>
+<p id='total_features'>{{ count_total.total_features }}</p>
+<p id='total_senarios'>{{ count_total.total_senarios }}</p>
+<p id='total_steps'>{{ count_total.total_steps }}</p>
+
+<p id='total_passed'>{{ count_total.total_passed }}</p>
+<p id='total_failed'>{{ count_total.total_failed }}</p>
+<p id='total_pending'>{{ count_total.total_pending }}</p>
+<p id='total_skipped'>{{ count_total.total_skipped }}</p>
+
+<p id='percent_passed'>{{ count_total.percent_passed }}</p>
+<p id='percent_failed'>{{ count_total.percent_failed }}</p>
+<p id='percent_pending'>{{ count_total.percent_pending }}</p>
+<p id='percent_skipped'>{{ count_total.percent_skipped }}</p>
+</div>
+
+
+
+{% endblock %}
