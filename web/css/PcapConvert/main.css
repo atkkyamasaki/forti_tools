@@ -1,0 +1,30 @@
+body { font-size: 0.8em; }
+
+.container_title, .container_upload, .container_history { padding: 8px 4px 4px 8px; margin: 8px 8px 0 8px; }
+
+.container_title > h1 { font-size: 1.5em; background-color: #0275d8; color: white; padding: 12px 24px; margin: 8px 0; width: 350px; }
+.container_title > h1 > i { padding: 0 12px 0 0; }
+
+.container_upload > div > span { background-color: #0275d8; color: white; padding: 4px 8px; border-radius: 4px; }
+.container_upload > div > span:hover { opacity: 0.8; }
+.container_upload > div > span > i { padding: 0 4px 0 0; }
+
+.container_history > h2 { border-left: 8px solid #0275d8; padding: 8px 0 8px 8px; font-size: 1.5em; }
+.container_history > p { margin-left: 32px; }
+.container_history > p > i { padding-right: 8px; }
+
+#file_drag_drop_handler { border: 2px dashed #0275d8; width: 500px; color: #92AAB0; text-align: left; vertical-align: middle; padding: 40px; margin-bottom: 40px; font-size: 1.5em; }
+
+.progressBar { width: 200px; height: 22px; border: 1px solid #ddd; border-radius: 5px; overflow: hidden; display: inline-block; margin: 0px 10px 5px 5px; vertical-align: top; }
+
+.progressBar div { height: 100%; color: #fff; text-align: right; line-height: 22px; /* same as #progressBar height if we want text middle aligned */ width: 0; background-color: #0275d8; border-radius: 3px; }
+
+.statusbar { border-top: 1px solid #0275d8; min-height: 25px; width: 700px; padding: 10px 10px 0px 10px; vertical-align: top; }
+
+.statusbar:nth-child(odd) { background: #EBEFF0; }
+
+.filename { display: inline-block; vertical-align: top; width: 250px; }
+
+.filesize { display: inline-block; vertical-align: top; color: #30693D; width: 100px; margin-left: 10px; margin-right: 5px; }
+
+.abort { background-color: #A8352F; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; display: inline-block; color: #fff; font-family: arial; font-size: 13px; font-weight: normal; padding: 4px 15px; cursor: pointer; vertical-align: top; }

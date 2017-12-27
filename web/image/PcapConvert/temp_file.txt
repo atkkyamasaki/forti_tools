@@ -1,0 +1,93 @@
+■ 開発環境 PC
+
+　・SASS コンパイルのため Ruby のインストール、Gem のアップデート
+　　
+　　参考 URL
+　　https://nelog.jp/sublime-text-3-scss-compass
+
+　・Backup
+　　PHP
+　　Sublime
+　　Memo 関連
+
+■ Ticket Assign Tool
+
+・server
+　10.130.131.2 (sshでアクセス可)
+　User/pass : fortinet_tacjp/Fortinet2015
+
+・mysql
+　http://10.130.3.185:28880/phpmyadmin/
+　User/pass : admin/admin
+　Database : fc0
+
+・PHP 設定
+　
+　1. PHP ダウンロード
+　　 http://windows.php.net/download#php-7.1
+　　 　-> (7.1.12) VC14 x64 Thread Safe (2017-Nov-23 18:29:12)
+　
+　2. xdebug ダウンロード
+　　 https://xdebug.org/download.php
+　　 　-> Xdebug 2.5.5 / PHP 7.1 VC14 TS (64 bit)
+　
+　3. C: に "php" とリネームした PHP フォルダを移動
+　　 　-> xdebug を "php_xdebug.dll" とリネームし php/ext フォルダに移動
+　
+　4. php の Path を追加
+　
+　5. php.ini の作成
+　　
+	date.timezone = Asia/Tokyo
+	
+	[xdebug]
+	zend_extension="php_xdebug.dll"
+	xdebug.remote_host=127.0.0.1
+	xdebug.remote_port=9000
+	xdebug.remote_enable=1
+	xdebug.remote_autostart=1
+
+・本番 Server の更新作業
+　cd ticket_assign_ui/
+　sudo git reset --hard
+　sudo git pull
+　sudo chmod -R 777 ../ticket_assign_ui
+　sudo rm -rf app/cache/prod
+　sudo rm -rf app/cache/dev
+　sudo php app/console server:run --env=prod 0.0.0.0:80
+　
+　
+　
+・
+　ps aux | grep php
+　sudo kill 580
+
+
+■ FortiWork
+
+・クローン後の個別処理
+　
+　■ Chrome、Opera
+　　 
+　　・不要フォルダ、ファイルの削除
+　　　-> git、sass、config.rb、JS Minify 前ファイル
+　　・manifest File の整理
+　　　-> コメント分の削除
+　
+　■ Edge
+　　
+　　・Chrome、Opera 用のコードをコピー
+　　・manifest File の整理
+　　　-> popup.html の削除
+　　　-> background 項目削除
+　　　-> permissions 項目削除
+　
+　■ FireFox
+　　
+　　・Edge 用のコードをコピー
+　　・Firefox 開発者センターで署名
+
+
+
+
+
