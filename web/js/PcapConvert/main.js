@@ -93,7 +93,7 @@ function sendFileToServer(formData,status) {
         success: function(data){
             status.setProgress(100);
             // console.log(data);
-            // window.location.href = '../image/pcapConvert/pcap/' + data.file_name;
+            window.location.href = '../image/pcapConvert/pcap/' + data.file_name;
         }
     });
   

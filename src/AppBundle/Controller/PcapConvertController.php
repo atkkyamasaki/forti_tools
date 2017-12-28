@@ -45,6 +45,7 @@ class PcapConvertController extends Controller
     public function uploadAction()
     {
         $data = date("Ymd_His");
+        $targetDir = "../web/image/PcapConvert/pcap/";
         $createPcapName = $data . '.pcap';
 
         if($_FILES["file"]["tmp_name"]){
@@ -56,13 +57,15 @@ class PcapConvertController extends Controller
         }
 
         // Pcap 変換処理
+        $cmd = 'fgt2eth.exe -in ' . $postFile . ' -out ' . $targetDir . $createPcapName;
+        exec($cmd, $output);
 
-
-        $this->fileRotate();
+        $rotate = $this->fileRotate();
 
         return new JsonResponse([
             'status' => 'OK',
             'file_name' => $createPcapName,
+            'rotate' => $rotate,
         ]);
 
     }
@@ -76,6 +79,8 @@ class PcapConvertController extends Controller
     private function fileRotate()
     {
 
+        $rotateFlag = false;
+
         $fileDir = "../web/image/PcapConvert/pcap";
         $filesArray = array();
 
@@ -85,12 +90,13 @@ class PcapConvertController extends Controller
             }
         }
 
-        // error_log('debug = ' . print_r($filesArray, true) . "\n", 3, 'C:\Users\Administrator\Desktop\debug.txt');
-
         while (count($filesArray) > 10) {
-            $removeFile = array_pop($filesArray);
+            $removeFile = array_shift($filesArray);
             unlink($fileDir . '/' . $removeFile);
+            $rotateFlag = true;
         }
+
+        return $rotateFlag;
     }
 
 }

@@ -1,6 +1,3 @@
-{% set macServer = 'http://10.130.131.2' %}
-{% set winServer = 'http://192.168.44.200' %}
-
 <!DOCTYPE html>
 <html lang="jp">
 <head>
@@ -30,7 +27,7 @@
         Ticket Manager
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-        <a class="dropdown-item" href="{{ macServer }}/auto_ticket/view">Auto Ticket Update</a>
+        <a class="dropdown-item" href="/auto_ticket/view">Auto Ticket Update</a>
       </div>
     </li>
     <li class="nav-item dropdown">
@@ -38,7 +35,7 @@
         Tools
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
-        <a class="dropdown-item" href="{{ winServer }}/pcapConvert/view">Pcap Cnovert</a>
+        <a class="dropdown-item" href="/pcapConvert/view">Pcap Cnovert</a>
       </div>
     </li>
     <li class="nav-item dropdown">
