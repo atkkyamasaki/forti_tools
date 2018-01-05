@@ -35,6 +35,7 @@
         Tools
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+        <a class="dropdown-item" href="/logIntegrate/view">Log Integration</a>
         <a class="dropdown-item" href="/pcapConvert/view">Pcap Cnovert</a>
       </div>
     </li>

@@ -1,0 +1,18 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}Log Integration - {{ parent() }}{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="/css/LogIntegrate/main.css">
+<script src="/js/LogIntegrate/main.js"></script>
+
+<div class="container_title">
+    <h1><i class="fa fa-tachometer" aria-hidden="true"></i>Pcap Convert</h1>
+</div>
+
+<div class="container_upload">
+	<div id="file_drag_drop_handler">Please Upload file here or Click <span id="file_click_handler"><i class="fa fa-file-text-o" aria-hidden="true"></i>here</span></div>
+	<input type="file" name="file" id="input_file" style="display: none;">
+</div>
+
+{% endblock %}
