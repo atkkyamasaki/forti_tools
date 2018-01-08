@@ -3,7 +3,6 @@
 /app/logs/*
 !app/logs/.gitkeep
 /web/image/tmp/*
-/web/image/AutoTicketUpdate/logs.zip
 /web/image/PcapConvert/pcap/*
 !web/image/PcapConvert/pcap/.gitkeep
 /web/output.tmp
