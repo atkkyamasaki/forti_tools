@@ -51,6 +51,8 @@ body { font-size: 0.8em; }
 
 .change_assign_icon, .script_submit_button, .log_download_button { background-color: #0275d8; color: white; padding: 6px; border-radius: 4px; font-size: 0.8em; }
 
+.change_assign_icon { box-shadow: 2px 2px rgba(0, 0, 0, 0.4); }
+
 .change_assign_icon:hover, .script_submit_button:hover, .log_download_button:hover { opacity: 0.7; }
 
 .manual_assign_create, .manual_assign_update { border-radius: 4px; }
