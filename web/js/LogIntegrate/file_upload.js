@@ -87,10 +87,22 @@ function sendFileToServer(formData) {
         cache: false,
         data: formData,
         success: function(data){
-            // console.log(data);
+            console.log(data);
+            selectFileType();
         }
     });
   
 }
 
+function selectFileType() {
+    var motalElement = $('.container_select_file_type,#container_modal_overlay');
 
+    motalElement.css('display', 'block');
+
+    $('#select_file_type_cancel').on('click', function(){
+        motalElement.css('display', 'none');
+        // input（file）フィールドの初期化
+        $('#input_file').val('');
+    });
+
+}

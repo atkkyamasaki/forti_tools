@@ -4,15 +4,40 @@
 
 {% block body %}
 <link rel="stylesheet" href="/css/LogIntegrate/main.css">
-<script src="/js/LogIntegrate/main.js"></script>
+<script src="/js/LogIntegrate/file_upload.js"></script>
 
 <div class="container_title">
-    <h1><i class="fa fa-tachometer" aria-hidden="true"></i>Pcap Convert</h1>
+    <h1><i class="fa fa-tachometer" aria-hidden="true"></i>Log Integration Tool</h1>
 </div>
 
 <div class="container_upload">
 	<div id="file_drag_drop_handler">Please Upload file here or Click <span id="file_click_handler"><i class="fa fa-file-text-o" aria-hidden="true"></i>here</span></div>
 	<input type="file" name="file" id="input_file" style="display: none;">
 </div>
+
+<div class="container_select_file_type">
+	<p>Select File Information</p>
+	<p>Firmware : 
+		<select name="firmware">
+		<option value="545">5.4.5</option>
+		</select>
+	</p>
+	<p>File Type : 
+		<select name="file">
+		<option value="event">Event Log</option>
+		</select>
+	</p>
+	<p>
+		<span id="select_file_type_submit" class="select_file_type_btn">Submit</span>
+		<span id="select_file_type_cancel" class="select_file_type_btn">Cancel</span>
+	</p>
+</div>
+<div id="container_modal_overlay"></div>
+
+<div class="container_result_table">
+	<h2>Result - Table View</h2>
+
+</div>
+
 
 {% endblock %}

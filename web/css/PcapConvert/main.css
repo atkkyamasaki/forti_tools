@@ -2,10 +2,10 @@ body { font-size: 0.8em; }
 
 .container_title, .container_upload, .container_history { padding: 8px 4px 4px 8px; margin: 8px 8px 0 8px; }
 
-.container_title > h1 { font-size: 1.5em; background-color: #0275d8; color: white; padding: 12px 24px; margin: 8px 0; width: 350px; }
+.container_title > h1 { font-size: 1.5em; background-color: #0275d8; color: white; padding: 12px 24px; margin: 8px 0; width: 210px; }
 .container_title > h1 > i { padding: 0 12px 0 0; }
 
-.container_upload > div > span { background-color: #0275d8; color: white; padding: 4px 8px; border-radius: 4px; }
+.container_upload > div > span { background-color: #0275d8; color: white; padding: 4px 8px; border-radius: 4px; box-shadow: 2px 2px rgba(0, 0, 0, 0.4); }
 .container_upload > div > span:hover { opacity: 0.8; }
 .container_upload > div > span > i { padding: 0 4px 0 0; }
 
