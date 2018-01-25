@@ -18,12 +18,12 @@
 <div class="container_select_file_type">
 	<p>Select File Information</p>
 	<p>Firmware : 
-		<select name="firmware">
+		<select name="upload_firmware">
 		<option value="545">5.4.5</option>
 		</select>
 	</p>
 	<p>File Type : 
-		<select name="file">
+		<select name="upload_file">
 		<option value="event">Event Log</option>
 		</select>
 	</p>
@@ -34,10 +34,28 @@
 </div>
 <div id="container_modal_overlay"></div>
 
-<div class="container_result_table">
-	<h2>Result - Table View</h2>
+
+<div class="container_result hide">
+	<h2>Result</h2>
+
+	<div class="container_operate_tools">
+<!-- 
+		<p><input type="checkbox" name="cbfilter_1" id="cbfilter_1" value="1" class="cbfilter cbfilter_1" checked="checked"><label for="cbfilter_1">cbfilter_1</label></p>
+		<p><input type="checkbox" name="cbfilter_2" id="cbfilter_2" value="1" class="cbfilter cbfilter_2" checked="checked"><label for="cbfilter_2">cbfilter_2</label></p>
+
+ -->
+ 	</div>
+
+	<p><a href="/logIntegrate/view/table/{{ id }}" id="link_table_view" class="link_btn" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i>Go to Table View</a></p>
+	<p><a href="/logIntegrate/view/timeline/{{ id }}" id="link_timeline_view" class="link_btn" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i>Go to Timeline View</a></p>
 
 </div>
 
+
+<div class="all_loading hide"></div>
+
+<div class="hide_data hide">
+	<div id="id">{{ id }}</div>
+</div>
 
 {% endblock %}

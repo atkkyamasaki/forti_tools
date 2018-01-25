@@ -20,11 +20,14 @@ class LogIntegrateController extends Controller
      */
     public function viewAction()
     {
+        // 重複したアクセスが発生した際にも id を付与して処理するディレクトリを分ける
+        $id = date("Ymd_His");
+
         return $this->render('AppBundle:LogIntegrate:index.html.twig', [
+            'id' => $id,
         ]);
 
     }
-
 
     /**
      * @Route("/upload")
@@ -32,10 +35,7 @@ class LogIntegrateController extends Controller
      */
     public function uploadAction()
     {
-        $data = date("Ymd_His");
-        $targetDir = "../web/image/logIntegrate/";
-        $createPcapName = $data . '.pcap';
-
+        // 新規ログファイルをアップロードして temp_file.txt に書き込む
         if($_FILES["file"]["tmp_name"]){
             $postFile = "../web/image/logIntegrate/temp_file.txt";
             if($postFile) {
@@ -44,11 +44,181 @@ class LogIntegrateController extends Controller
             move_uploaded_file($_FILES['file']['tmp_name'], $postFile);
         }
 
-        // Pcap 変換処理
-
         return new JsonResponse([
             'status' => 'OK',
-            'file_name' => $createPcapName,
+        ]);
+
+    }
+
+    /**
+     * @Route("/uploadLogResult")
+     * @Method({"POST"})
+     */
+    public function uploadLogResult()
+    {
+        // POST 情報よりファイル整形を行う情報を取得
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $id = $_POST["id"];
+            $firmware = $_POST["firmware"];
+            $file = $_POST["file"];
+            $count = $_POST["count"];
+        }
+
+        // 作業用のディレクトリとファイルの初期化
+        $logFilePath = '../web/image/LogIntegrate/temp_file.txt';
+        $htmlFilterFilePath = '../web/image/LogIntegrate/' . $id . '/html_file.txt';
+        $margeFileDir = '../web/image/LogIntegrate/' . $id;
+        $margeFilePath = $margeFileDir . '/marge_file.txt';
+
+        if (!file_exists($margeFileDir)) {
+            mkdir($margeFileDir, '0777',TRUE);
+        }
+        if (!file_exists($margeFilePath)) {
+            touch($margeFilePath);
+        }
+        if (!file_exists($htmlFilterFilePath)) {
+            touch($htmlFilterFilePath);
+        }
+
+        // ファイル整形処理を実行
+        $result = $this->fileWriteTypeSelector($id, $file, $firmware, $logFilePath, $margeFilePath);
+
+        // フィルタ用の HTML ボタンを作成
+        $resultHtmlFilterBtn = $this->createHtmlFilterBtn($id, $file, $firmware, $count, $htmlFilterFilePath);
+
+        return new JsonResponse([
+            'status' => $id . $firmware . $file .$count,
+            'htmlFilterBtn' => $resultHtmlFilterBtn,
+        ]);
+    }
+
+    /**
+     * Select writing style per file type.
+     *
+     * @param string $id
+     * @param string $file
+     * @param string $firmware
+     * @param string $logFilePath
+     * @param string $margeFilePath
+     * @return array
+     */
+    private function fileWriteTypeSelector($id, $file, $firmware, $logFilePath, $margeFilePath)
+    {
+        switch($file) {
+            case 'event':
+                $this->writeTypeEventlog($id, $firmware, $logFilePath, $margeFilePath);
+                break;
+
+            default:
+
+        }
+
+        return true;
+    }
+
+    /**
+     * Write and Sort for Event Log.
+     *
+     * @param string $id
+     * @param string $firmware
+     * @param string $logFilePath
+     * @param string $margeFilePath
+     * @return array
+     */
+    private function writeTypeEventlog($id, $firmware, $logFilePath, $margeFilePath)
+    {
+        /* ファイルポインタをオープン */
+        $file = fopen($logFilePath, "r");
+         
+        /* ファイルを1行ずつ出力 */
+        if($file){
+            while ($line = fgets($file)) {
+
+            // Log 文字列の初期化（初めの文字が "date" となる）
+            $rawLine = mb_strstr($line, 'date=');
+
+            // Log 文字列から空白文字区切りの配列に変換
+            $loopCount = mb_substr_count($rawLine, ' ');
+            $logArray = [];
+            for ($i =0 ; $i < $loopCount; $i++) { 
+                $tmp = mb_strstr($rawLine, ' ', true);
+
+                if (mb_substr_count($tmp, '"') === 1) {
+
+                    $rawLine = trim(str_replace($tmp, '', $rawLine));
+                    $tmp2 = mb_strstr($rawLine, "\"", true);
+                    $tmpMarge = $tmp . ' ' . $tmp2 . '"';
+                    $rawLine = trim(str_replace($tmp2. '"', '', $rawLine));
+
+                    array_push($logArray, $tmpMarge);
+
+                } else {
+                    array_push($logArray, $tmp);
+                    $rawLine = trim(str_replace($tmp, '', $rawLine));
+                }
+            }
+            // 最後に分割前の生ログメッセージを追加
+            array_push($logArray, $line);
+
+            // 配列を展開して HTML タグ付け
+
+
+            error_log('debug = ' . print_r($logArray, true) . "\n", 3, 'C:\Users\Administrator\Desktop\debug.txt');
+
+            file_put_contents($margeFilePath, $line, FILE_APPEND);
+          }
+        }
+         
+        /* ファイルポインタをクローズ */
+        fclose($file);
+
+        return true;
+    }
+
+    /**
+     * Create html button for filter.
+     *
+     * @param string $id
+     * @param string $file
+     * @param string $firmware
+     * @param string $count
+     * @param string $htmlFilterFilePath
+     * @return string
+     */
+    private function createHtmlFilterBtn($id, $file, $firmware, $count, $htmlFilterFilePath)
+    {
+        $htmlFilterBtn = '<p><input type="checkbox" name="cbfilter_' . $count . '" id="cbfilter_' . $count . '" value="1" class="cbfilter cbfilter_' . $count . '" checked="checked"><label for="cbfilter_' . $count . '">' . $count . ':' . $file . '</label></p>';
+
+        file_put_contents($htmlFilterFilePath, $htmlFilterBtn, FILE_APPEND);
+
+        return $htmlFilterBtn;
+    }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @Route("/view/table/{id}")
+     * @Method({"GET"})
+     */
+    public function tableViewAction($id)
+    {
+        $margeFilePath = '../web/image/LogIntegrate/' . $id . '/marge_file.txt';
+        $resultLogArray = file($margeFilePath);
+
+        $htmlFilterFilePath = '../web/image/LogIntegrate/' . $id . '/html_file.txt';
+        $resultHtmlFilterBtn = file($htmlFilterFilePath);
+
+        return $this->render('AppBundle:LogIntegrate:table_view.html.twig', [
+            'id' => $id,
+            'result_log_array' => $resultLogArray,
+            'result_html_filter_btn' => $resultHtmlFilterBtn,
         ]);
 
     }

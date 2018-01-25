@@ -1,3 +1,4 @@
+
 // File のドラッグ&ドロップ
 // 参考 URL
 // http://www.it-view.net/drag-and-drop-file-upload-jquery-178.html
@@ -20,7 +21,6 @@ $(document).ready(function() {
         $(this).css('border', '2px dashed #0275d8');
         e.preventDefault();
         var files = e.originalEvent.dataTransfer.files;
-        console.log(files);
   
         //We need to send dropped files to Server
         handleFileUpload(files,obj);
@@ -52,6 +52,9 @@ $(document).ready(function() {
 });
 
 function handleFileUpload(files,obj) {
+
+    $('.all_loading').removeClass('hide');
+
     for (var i = 0; i < files.length; i++) {
         var fd = new FormData();
         fd.append('file', files[i]);
@@ -63,23 +66,9 @@ function handleFileUpload(files,obj) {
 
 function sendFileToServer(formData) {
 
-    var uploadURL ="/logIntegrate/upload"; //Upload URL
-    var extraData ={}; //Extra Data.
-    var jqXHR=$.ajax({
-        xhr: function() {
-            var xhrobj = $.ajaxSettings.xhr();
-            if (xhrobj.upload) {
-                xhrobj.upload.addEventListener('progress', function(event) {
-                    var percent = 0;
-                    var position = event.loaded || event.position;
-                    var total = event.total;
-                    if (event.lengthComputable) {
-                        percent = Math.ceil(position / total * 100);
-                    }
-                }, false);
-            }
-            return xhrobj;
-        },
+    var uploadURL = "/logIntegrate/upload"; //Upload URL
+    var extraData = {}; //Extra Data.
+    var jqXHR = $.ajax({
     url: uploadURL,
     type: "POST",
     contentType:false,
@@ -87,22 +76,60 @@ function sendFileToServer(formData) {
         cache: false,
         data: formData,
         success: function(data){
-            console.log(data);
-            selectFileType();
+            var motalElement = $('.container_select_file_type,#container_modal_overlay');
+            motalElement.css('display', 'block');
+            $('.all_loading').addClass('hide');
         }
     });
   
 }
 
-function selectFileType() {
+
+
+// ファイルアップロード後の処理
+
+$(function() {
     var motalElement = $('.container_select_file_type,#container_modal_overlay');
 
-    motalElement.css('display', 'block');
+    $('#select_file_type_submit').on('click', function(){
+
+        $('.all_loading').removeClass('hide');
+
+        var id = $('#id').text();
+        var uploadFirmware = $('[name="upload_firmware"]').val();
+        var uploadFile = $('[name="upload_file"]').val();
+        var count = $('body > div.container_result > div > p').length + 1;
+
+        motalElement.css('display', 'none');
+
+        $.ajax({
+            type: 'post',
+            url: '/logIntegrate/uploadLogResult',
+            data: {
+                'id': id,
+                'firmware': uploadFirmware,
+                'file': uploadFile,
+                'count': count,
+            },
+            success: function (data) {
+                var addToContainer = $('.container_operate_tools')
+                addToContainer.append(data.htmlFilterBtn);
+            },
+            complete: function () {
+
+                $('.container_result').removeClass('hide');
+                $('.all_loading').addClass('hide');
+            }
+        });
+
+
+        // input（file）フィールドの初期化
+        $('#input_file').val('');
+    });
 
     $('#select_file_type_cancel').on('click', function(){
         motalElement.css('display', 'none');
         // input（file）フィールドの初期化
         $('#input_file').val('');
     });
-
-}
+});
