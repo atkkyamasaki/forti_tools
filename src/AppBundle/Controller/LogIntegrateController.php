@@ -81,7 +81,7 @@ class LogIntegrateController extends Controller
         }
 
         // ファイル整形処理を実行
-        $result = $this->fileWriteTypeSelector($id, $file, $firmware, $logFilePath, $margeFilePath);
+        $result = $this->fileWriteTypeSelector($id, $file, $firmware, $logFilePath, $margeFilePath, $count);
 
         // フィルタ用の HTML ボタンを作成
         $resultHtmlFilterBtn = $this->createHtmlFilterBtn($id, $file, $firmware, $count, $htmlFilterFilePath);
@@ -100,13 +100,14 @@ class LogIntegrateController extends Controller
      * @param string $firmware
      * @param string $logFilePath
      * @param string $margeFilePath
+     * @param string $count
      * @return array
      */
-    private function fileWriteTypeSelector($id, $file, $firmware, $logFilePath, $margeFilePath)
+    private function fileWriteTypeSelector($id, $file, $firmware, $logFilePath, $margeFilePath, $count)
     {
         switch($file) {
             case 'event':
-                $this->writeTypeEventlog($id, $firmware, $logFilePath, $margeFilePath);
+                $this->writeTypeEventlog($id, $firmware, $logFilePath, $margeFilePath, $count);
                 break;
 
             default:
@@ -123,53 +124,97 @@ class LogIntegrateController extends Controller
      * @param string $firmware
      * @param string $logFilePath
      * @param string $margeFilePath
+     * @param string $count
      * @return array
      */
-    private function writeTypeEventlog($id, $firmware, $logFilePath, $margeFilePath)
+    private function writeTypeEventlog($id, $firmware, $logFilePath, $margeFilePath, $count)
     {
         /* ファイルポインタをオープン */
         $file = fopen($logFilePath, "r");
          
         /* ファイルを1行ずつ出力 */
         if($file){
+
+            // 列 Filter 用のキーワードを入れる配列
+            $columnFilterWordArray = [];
+
             while ($line = fgets($file)) {
 
-            // Log 文字列の初期化（初めの文字が "date" となる）
-            $rawLine = mb_strstr($line, 'date=');
+                // Log 文字列の初期化（初めの文字が "date" となる）
+                $rawLine = mb_strstr($line, 'date=');
 
-            // Log 文字列から空白文字区切りの配列に変換
-            $loopCount = mb_substr_count($rawLine, ' ');
-            $logArray = [];
-            for ($i =0 ; $i < $loopCount; $i++) { 
-                $tmp = mb_strstr($rawLine, ' ', true);
+                // Log 文字列から空白文字区切りの配列に変換
+                $loopCount = mb_substr_count($rawLine, ' ');
+                $logArray = [];
+                for ($i =0 ; $i < $loopCount; $i++) { 
+                    $tmp = mb_strstr($rawLine, ' ', true);
 
-                if (mb_substr_count($tmp, '"') === 1) {
+                    if (mb_substr_count($tmp, '"') === 1) {
 
-                    $rawLine = trim(str_replace($tmp, '', $rawLine));
-                    $tmp2 = mb_strstr($rawLine, "\"", true);
-                    $tmpMarge = $tmp . ' ' . $tmp2 . '"';
-                    $rawLine = trim(str_replace($tmp2. '"', '', $rawLine));
+                        $rawLine = trim(str_replace($tmp, '', $rawLine));
+                        $tmp2 = mb_strstr($rawLine, "\"", true);
+                        $tmpMarge = $tmp . ' ' . $tmp2 . '"';
+                        $rawLine = trim(str_replace($tmp2. '"', '', $rawLine));
 
-                    array_push($logArray, $tmpMarge);
+                        array_push($logArray, $tmpMarge);
 
-                } else {
-                    array_push($logArray, $tmp);
-                    $rawLine = trim(str_replace($tmp, '', $rawLine));
+                    } else {
+                        array_push($logArray, $tmp);
+                        $rawLine = trim(str_replace($tmp, '', $rawLine));
+                    }
                 }
+
+                // 配列内の空を削除
+                $logArray = array_values(array_filter($logArray, "strlen"));
+
+                // 連想配列へ変換
+                $logHash = [];
+                foreach ($logArray as $value) {
+                    $tmp = explode('=', $value);
+                    $logHash[$tmp['0']] = $tmp['1'];
+                }
+
+                // 日付情報と生ログメッセージを追加
+                $logHash = array_merge(array('custom_time' => $logHash['date'] . ' ' . $logHash['time']), $logHash);
+                $logHash['allinfo'] = mb_strstr($line, 'date=');
+
+                // 配列を展開して HTML タグ付け
+                $logString = '<tr class="filtertype_event cbfilter_' . $count . '">';
+                foreach ($logHash as $key => $value) {
+                    
+                    // 列 Filter 用のキーワードを追加
+                    if (!in_array($key, $columnFilterWordArray)) {
+                        array_push($columnFilterWordArray, $key);
+                    }
+
+                    if ($key !== 'allinfo') {
+                        $logString .= '<td class="hide eventlog_' . $key . '">';
+                        $logString .= $value;
+                        $logString .= '</td>';
+                    } else {
+                        $logString .= '<td class="hide eventlog_allinfo">' . preg_replace('/\n|\r|\r\n/', '', $value) . '</td></tr>';
+                    }
+                }
+
+            file_put_contents($margeFilePath, $logString . PHP_EOL, FILE_APPEND);
             }
-            // 最後に分割前の生ログメッセージを追加
-            array_push($logArray, $line);
-
-            // 配列を展開して HTML タグ付け
-
-
-            error_log('debug = ' . print_r($logArray, true) . "\n", 3, 'C:\Users\Administrator\Desktop\debug.txt');
-
-            file_put_contents($margeFilePath, $line, FILE_APPEND);
-          }
         }
          
         /* ファイルポインタをクローズ */
+        fclose($file);
+
+        // 列 Filter 用のキーワードをファイルに書き込み
+        $filterFilePath = '../web/image/LogIntegrate/' . $id . '/column_filter_event.txt';
+       
+        if (file_exists($filterFilePath)) {
+            $existFilterWordArray = file($filterFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            $columnFilterWordArray = array_unique(array_merge($existFilterWordArray, $columnFilterWordArray));
+        }
+
+        $file = fopen($filterFilePath, "w");
+        foreach ($columnFilterWordArray as $value) {
+            fputs($file, $value . PHP_EOL);
+        }
         fclose($file);
 
         return true;
@@ -189,7 +234,7 @@ class LogIntegrateController extends Controller
     {
         $htmlFilterBtn = '<p><input type="checkbox" name="cbfilter_' . $count . '" id="cbfilter_' . $count . '" value="1" class="cbfilter cbfilter_' . $count . '" checked="checked"><label for="cbfilter_' . $count . '">' . $count . ':' . $file . '</label></p>';
 
-        file_put_contents($htmlFilterFilePath, $htmlFilterBtn, FILE_APPEND);
+        file_put_contents($htmlFilterFilePath, $htmlFilterBtn . PHP_EOL, FILE_APPEND);
 
         return $htmlFilterBtn;
     }
@@ -210,17 +255,40 @@ class LogIntegrateController extends Controller
     public function tableViewAction($id)
     {
         $margeFilePath = '../web/image/LogIntegrate/' . $id . '/marge_file.txt';
-        $resultLogArray = file($margeFilePath);
+        $resultLogArray = file($margeFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
         $htmlFilterFilePath = '../web/image/LogIntegrate/' . $id . '/html_file.txt';
-        $resultHtmlFilterBtn = file($htmlFilterFilePath);
+        $resultHtmlFilterBtn = file($htmlFilterFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+        $resultColumnFilterArray = $this->getColumnFilterArray($id);
+
+        // error_log('debug = ' . print_r($resultColumnFilterArray, true) . "\n", 3, 'C:\Users\Administrator\Desktop\debug.txt');
 
         return $this->render('AppBundle:LogIntegrate:table_view.html.twig', [
             'id' => $id,
             'result_log_array' => $resultLogArray,
             'result_html_filter_btn' => $resultHtmlFilterBtn,
+            'reuslt_column_filter_array' => $resultColumnFilterArray,
         ]);
 
+    }
+
+    /**
+     * Get array for Cloumn Filter
+     *
+     * @param string $id
+     * @return array 
+     */
+    private function getColumnFilterArray($id)
+    {
+        $eventFilePath = '../web/image/LogIntegrate/' . $id . '/column_filter_event.txt';
+
+        $result = [];
+        if (file_exists($eventFilePath)) {
+            $result['event'] = file($eventFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        }
+
+        return $result;
     }
 
 

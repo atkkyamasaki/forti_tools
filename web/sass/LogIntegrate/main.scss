@@ -1,7 +1,7 @@
 $bkcolor_1 : #66FF66; // 緑
-$bkcolor_1_opacity : rgba(102, 255, 102, 0.5);
+$bkcolor_1_opacity : rgba(102, 255, 102, 0.3);
 $bkcolor_2 : #FF77FF; // ピンク
-$bkcolor_1_opacity : rgba(255, 119, 255, 0.5);
+$bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 
 
 .container_title,
@@ -36,7 +36,8 @@ $bkcolor_1_opacity : rgba(255, 119, 255, 0.5);
 		    padding: 4px 8px;
 		    border-radius: 4px;
 		    box-shadow: 2px 2px rgba(0, 0, 0, 0.4);
-			
+			cursor: pointer;
+
 			&:hover {
 				opacity: 0.8;
 			}
@@ -64,6 +65,7 @@ $bkcolor_1_opacity : rgba(255, 119, 255, 0.5);
 .container_result {
 	> h2 {
 		border-left: 8px solid #0275d8;
+	    border-bottom: 4px solid #0275d8;
     	padding: 8px 0 8px 8px;
     	font-size: 1.5em;
 	}
@@ -146,6 +148,7 @@ $bkcolor_1_opacity : rgba(255, 119, 255, 0.5);
 		border: 1px solid gray;
 		border-radius: 4px;
 		color: white;
+		cursor: pointer;
 		opacity: 0.5;
 	}
 
@@ -159,6 +162,7 @@ $bkcolor_1_opacity : rgba(255, 119, 255, 0.5);
 	.cbfilter_2 + label {
 		background-color: $bkcolor_2;
 	}
+
 
 }
 

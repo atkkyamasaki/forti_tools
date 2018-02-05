@@ -4,38 +4,60 @@
 
 {% block body %}
 <link rel="stylesheet" href="/css/LogIntegrate/main.css">
-<script src="/js/LogIntegrate/file_upload.js"></script>
+<link rel="stylesheet" href="/css/LogIntegrate/table_view.css">
+<script src="/js/LogIntegrate/table_view.js"></script>
+<script src="/js/LogIntegrate/event_log.js"></script>
 
 <div class="container_title">
     <h1><i class="fa fa-tachometer" aria-hidden="true"></i>Log Integration Tool</h1>
+	<ul>
+		<li class="columns_filter_menu"><i class="fa fa-filter" aria-hidden="true"></i>Columns Filter</li>
+			<div class="columns_filter_types hide">
+				{% for filter_type_key,filter_type_value in reuslt_column_filter_array%}
+					<li id="columns_filter_type_{{ filter_type_key }}" class="columns_filter_type">{{ filter_type_key }}</li>
+				{% endfor %}
+			</div>
+		<li><i class="fa fa-calendar" aria-hidden="true"></i></i>Time Period</li>
+	</ul>
 </div>
+
+<div class="container_columns_filter_window">
+	{% for filter_type_key,filter_type_value in reuslt_column_filter_array%}
+		<div class="columns_filter_type_{{ filter_type_key }}">{{ filter_type_key }}</div>
+		{% for filter_column in filter_type_value %}
+			<li>{{ filter_column }}</li>
+		{% endfor %}
+	{% endfor %}
+</div>
+<div id="container_modal_overlay"></div>
+
 
 <div class="container_result">
 
 	<div class="container_operate_tools">
-   	{% for filter_btn in result_html_filter_btn %}
-	   	{{ filter_btn | raw}}
-   	{% endfor %}
- 	</div>
+		{% for filter_btn in result_html_filter_btn %}
+			{{ filter_btn | raw}}
+		{% endfor %}
+	</div>
 
     <table class="table table-hover table-bordered">
         <caption style="caption-side: top">Table View</caption>
         <thead>
-            <tr class="bg-primary">
+<!--             <tr class="bg-primary">
                 <th>Date</th>
                 <th>Msg</th>
                 <th>All</th>
-            </tr>
+            </tr> -->
         </thead>
         <tbody>
        	{% for log in result_log_array %}
-        	<tr>{{ log | raw }}</tr>
+        	{{ log | raw }}
        	{% endfor %}
         </tbody>
     </table>
 
-
 </div>
+
 
 <div class="all_loading hide"></div>
 
