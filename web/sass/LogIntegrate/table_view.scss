@@ -54,8 +54,9 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 }
 
 .container_columns_filter_window {
-    top: 50%;
+    top: 320px;
     left: 50%;
+    max-width: 400px;
     margin: -150px 0 0 -200px;
     padding: 16px;
     text-align: center;
@@ -64,11 +65,48 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
     border: 1px solid black;
     position: absolute;
     z-index: 10;
+
+	> div {
+		font-size: 1.5em;
+	    border-bottom: 2px solid #0275d8;
+	    margin-bottom: 16px;
+	}
+
+    .column_filter {
+		text-align: left;
+	    display: inline-block;
+	    float: left;
+	    width: 120px;
+    }
+
+    .select_file_type_btn {
+   	    background-color: #0275d8;
+	    color: white;
+	    box-shadow: rgba(0, 0, 0, 0.4) 2px 2px;
+	    padding: 6px;
+	    margin: 0 8px;
+	    border-radius: 4px;
+
+		&:hover {
+			opacity: 0.8;
+		}
+    }
+
 }
 
 
 .container_result {
 	table {
+		font-size: 10px;
+		word-wrap: break-word;
+
+		td:nth-of-type(1) {
+			width: 90px;
+		}
+
+		td:last-of-type {
+			width: 40px;
+		}
 
 		.cbfilter_1 {
 			background-color: $bkcolor_1_opacity;
@@ -76,6 +114,21 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 
 		.cbfilter_2 {
 			background-color: $bkcolor_2_opacity;
+		}
+		
+		.target-allinfo {
+			cursor: pointer;
+			&:hover {
+				opacity: 0.8;
+			}
+
+			> i {
+				font-size: 16px;
+			}
+		}
+
+		.column_allinfo {
+			background-color: white;
 		}
 
 	}

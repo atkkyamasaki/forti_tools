@@ -23,6 +23,35 @@ $(function () {
 });
 
 
+// All Information（生ログ）の表示/非常時
+$(function () {
+	var allInfoTd = '.target-allinfo';
+	var allInfoIcon = '.target-allinfo > i';
+	var allInfoText = '.target-allinfo > span';
+	$(allInfoText).addClass('hide');
+
+	$(allInfoTd).on('click', function() {
+
+		if ($(this).children('i').hasClass('fa-plus-square')) {
+			$(this).children('i').removeClass('fa-plus-square');
+			$(this).children('i').addClass('fa-minus-square');
+
+			var getCbfilterClass = $(this).parent('tr').attr('class');
+			var valAllInfo = '<tr class="column_allinfo ' + getCbfilterClass + '"><td colspan="100">' + $(this).text() + '</td></tr>';
+			$(valAllInfo).insertAfter($(this).closest('tr'));
+		} else {
+			$(this).children('i').removeClass('fa-minus-square');
+			$(this).children('i').addClass('fa-plus-square');
+			$(this).parent('tr').next('tr').remove();
+		}
+
+
+	});
+
+
+
+});
+
 
 // Columns Filter
 
@@ -32,8 +61,16 @@ $(function () {
 	var columnsFilterMenu = '.columns_filter_menu';
 	var columnsFilterTypes = '.columns_filter_types';
 
-	$(columnsFilterMenu).on('click', function() {
-			$(columnsFilterTypes).toggleClass('hide');
+	$(columnsFilterMenu).hover(function() {
+		$(columnsFilterTypes).removeClass('hide');
+	}, function() {
+		$(columnsFilterTypes).addClass('hide');
+
+		$(columnsFilterTypes).hover(function() {
+			$(columnsFilterTypes).removeClass('hide');
+		}, function() {
+			$(columnsFilterTypes).addClass('hide');
+		});
 	});
 
 
@@ -53,7 +90,15 @@ $(function () {
 		});
 	});
 
+	// Filter Windows 閉じる
+	var closeBtn = '#select_filter_window_close';
 
+	$(closeBtn).on('click', function(){
+		$.each(filterTypes, function(index, value) {
+		    $('#' + value).addClass('hide');
+		});
+		motalElement.css('display', 'none');
+	});
 });
 
 

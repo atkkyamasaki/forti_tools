@@ -25,9 +25,11 @@
 	{% for filter_type_key,filter_type_value in reuslt_column_filter_array%}
 		<div class="columns_filter_type_{{ filter_type_key }}">{{ filter_type_key }}</div>
 		{% for filter_column in filter_type_value %}
-			<li>{{ filter_column }}</li>
+			<p class="column_filter"><input type="checkbox" name="column_filter_{{ filter_column }}" id="column_filter_{{ filter_column }}"><label for="column_filter_{{ filter_column }}">{{ filter_column }}</label></p>
 		{% endfor %}
 	{% endfor %}
+	<p style="clear: both"></p>
+	<span id="select_filter_window_close" class="select_file_type_btn">Close</span>
 </div>
 <div id="container_modal_overlay"></div>
 

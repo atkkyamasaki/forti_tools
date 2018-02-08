@@ -192,7 +192,7 @@ class LogIntegrateController extends Controller
                         $logString .= $value;
                         $logString .= '</td>';
                     } else {
-                        $logString .= '<td class="hide eventlog_allinfo">' . preg_replace('/\n|\r|\r\n/', '', $value) . '</td></tr>';
+                        $logString .= '<td class="hide eventlog_allinfo target-allinfo"><i class="fa fa-plus-square"></i><span>' . preg_replace('/\n|\r|\r\n/', '', $value) . '<span></td></tr>';
                     }
                 }
 

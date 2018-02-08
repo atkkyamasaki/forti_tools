@@ -8,7 +8,18 @@
 .container_title .columns_filter_types { position: absolute; }
 .container_title .columns_filter_types .columns_filter_type { display: block; margin: 0px; border-radius: 4px; }
 
-.container_columns_filter_window { top: 50%; left: 50%; margin: -150px 0 0 -200px; padding: 16px; text-align: center; display: none; background: #fff; border: 1px solid black; position: absolute; z-index: 10; }
+.container_columns_filter_window { top: 320px; left: 50%; max-width: 400px; margin: -150px 0 0 -200px; padding: 16px; text-align: center; display: none; background: #fff; border: 1px solid black; position: absolute; z-index: 10; }
+.container_columns_filter_window > div { font-size: 1.5em; border-bottom: 2px solid #0275d8; margin-bottom: 16px; }
+.container_columns_filter_window .column_filter { text-align: left; display: inline-block; float: left; width: 120px; }
+.container_columns_filter_window .select_file_type_btn { background-color: #0275d8; color: white; box-shadow: rgba(0, 0, 0, 0.4) 2px 2px; padding: 6px; margin: 0 8px; border-radius: 4px; }
+.container_columns_filter_window .select_file_type_btn:hover { opacity: 0.8; }
 
+.container_result table { font-size: 10px; word-wrap: break-word; }
+.container_result table td:nth-of-type(1) { width: 90px; }
+.container_result table td:last-of-type { width: 40px; }
 .container_result table .cbfilter_1 { background-color: rgba(102, 255, 102, 0.3); }
 .container_result table .cbfilter_2 { background-color: rgba(255, 119, 255, 0.3); }
+.container_result table .target-allinfo { cursor: pointer; }
+.container_result table .target-allinfo:hover { opacity: 0.8; }
+.container_result table .target-allinfo > i { font-size: 16px; }
+.container_result table .column_allinfo { background-color: white; }
