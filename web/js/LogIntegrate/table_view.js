@@ -102,3 +102,50 @@ $(function () {
 });
 
 
+
+// 検索、除外ワード Filter
+
+$(function () {
+
+	var inputIncludeWord = $('#include_filter_input_raw');
+
+	inputIncludeWord.on("keydown", function(e){
+		if (e.keyCode === 13) {
+			var filterString = inputIncludeWord.val();
+
+			if (filterString) {
+				var filterStringHtml = '<li class="input_string"><span class="input_string_text">' + filterString + '</span><span class="fa fa-times input_string_remove"></span></li>';
+				inputIncludeWord.before(filterStringHtml);
+				inputIncludeWord.val('');
+				includeStringsFilter();
+			}
+		}
+	});
+
+
+	var inputStringRemove = '.input_string_remove';
+
+	$(document).on("click" , inputStringRemove, function(){
+		$(this).parent().remove();
+
+	});
+
+});
+
+
+function includeStringsFilter () {
+
+	var filterStrings = $('.container_strings_include_filter > .input_string > .input_string_text');
+	filterStrings.map(function(index, element) {
+
+		var filterString = element.text()
+
+		console.log(element);
+		// return something;
+	})
+
+}
+
+
+
+
