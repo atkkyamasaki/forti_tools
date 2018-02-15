@@ -16,11 +16,13 @@
 
 .strings_include_filter_subject { float: left; padding: 10px 8px 0 0; }
 
-.container_strings_include_filter { float: left; border: 1px solid gray; padding: 8px; min-width: 50%; max-width: 80%; }
-.container_strings_include_filter .input_string { background-color: #e1e3e6; border: 1px solid lightgray; border-radius: 2px; float: left; padding: 0 8px; margin: 1px 4px; }
-.container_strings_include_filter .input_string .input_string_text { height: 13px; max-width: 90px; overflow: hidden; text-overflow: ellipsis; display: inline-block; }
-.container_strings_include_filter .input_string_remove { border-left: 1px solid lightgray; border-radius: 2px; margin: 0 0 0 4px; padding: 0 2px 0 4px; }
-.container_strings_include_filter .input_string_remove:hover { opacity: 0.5; color: red; cursor: pointer; }
+.strings_exclude_filter_subject { float: left; padding: 10px 6px 0 0; }
+
+.container_strings_include_filter, .container_strings_exclude_filter { float: left; border: 1px solid gray; padding: 8px; min-width: 50%; max-width: 80%; }
+.container_strings_include_filter .input_string, .container_strings_exclude_filter .input_string { background-color: #e1e3e6; border: 1px solid lightgray; border-radius: 2px; float: left; padding: 0 8px; margin: 1px 4px; }
+.container_strings_include_filter .input_string .input_string_text, .container_strings_exclude_filter .input_string .input_string_text { height: 13px; max-width: 90px; overflow: hidden; text-overflow: ellipsis; display: inline-block; }
+.container_strings_include_filter .input_string_remove, .container_strings_exclude_filter .input_string_remove { border-left: 1px solid lightgray; border-radius: 2px; margin: 0 0 0 4px; padding: 0 2px 0 4px; }
+.container_strings_include_filter .input_string_remove:hover, .container_strings_exclude_filter .input_string_remove:hover { opacity: 0.5; color: red; cursor: pointer; }
 
 .container_result table { font-size: 10px; word-wrap: break-word; }
 .container_result table td:nth-of-type(1) { width: 90px; }
@@ -31,3 +33,4 @@
 .container_result table .target-allinfo:hover { opacity: 0.8; }
 .container_result table .target-allinfo > i { font-size: 16px; }
 .container_result table .column_allinfo { background-color: white; }
+.container_result table .include_hide, .container_result table .exclude_hide { display: none; }

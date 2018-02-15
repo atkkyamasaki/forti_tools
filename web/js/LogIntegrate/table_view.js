@@ -107,8 +107,8 @@ $(function () {
 
 $(function () {
 
+	// Include 処理
 	var inputIncludeWord = $('#include_filter_input_raw');
-
 	inputIncludeWord.on("keydown", function(e){
 		if (e.keyCode === 13) {
 			var filterString = inputIncludeWord.val();
@@ -122,13 +122,33 @@ $(function () {
 		}
 	});
 
+	var inputStringRemove = '.input_string_remove';
+	$('.container_strings_include_filter').on("click" , inputStringRemove, function(){
+		$(this).parent().remove();
+		includeStringsFilter();
+	});
+
+	// Exclude 処理
+	var inputExcludeWord = $('#exclude_filter_input_raw');
+	inputExcludeWord.on("keydown", function(e){
+		if (e.keyCode === 13) {
+			var filterString = inputExcludeWord.val();
+
+			if (filterString) {
+				var filterStringHtml = '<li class="input_string"><span class="input_string_text">' + filterString + '</span><span class="fa fa-times input_string_remove"></span></li>';
+				inputExcludeWord.before(filterStringHtml);
+				inputExcludeWord.val('');
+				excludeStringsFilter();
+			}
+		}
+	});
 
 	var inputStringRemove = '.input_string_remove';
-
-	$(document).on("click" , inputStringRemove, function(){
+	$('.container_strings_exclude_filter').on("click" , inputStringRemove, function(){
 		$(this).parent().remove();
-
+		excludeStringsFilter();
 	});
+
 
 });
 
@@ -136,16 +156,41 @@ $(function () {
 function includeStringsFilter () {
 
 	var filterStrings = $('.container_strings_include_filter > .input_string > .input_string_text');
-	filterStrings.map(function(index, element) {
 
-		var filterString = element.text()
+	// すべての Filter 条件をクリア
+	$('.include_hide').removeClass('include_hide');
 
-		console.log(element);
-		// return something;
+	filterStrings.map(function() {
+		var filterString = $(this).text()
+		$('.target-allinfo > span').map(function() {
+			var allInfo = $(this).text();
+			if (allInfo.indexOf(filterString) == -1) {
+				if (!$(this).parents('tr').hasClass('include_hide')) {
+					$(this).parents('tr').addClass('include_hide');
+				}
+			}
+		});
 	})
-
 }
 
 
+function excludeStringsFilter () {
 
+	var filterStrings = $('.container_strings_exclude_filter > .input_string > .input_string_text');
+
+	// すべての Filter 条件をクリア
+	$('.exclude_hide').removeClass('exclude_hide');
+
+	filterStrings.map(function() {
+		var filterString = $(this).text()
+		$('.target-allinfo > span').map(function() {
+			var allInfo = $(this).text();
+			if (allInfo.indexOf(filterString) != -1) {
+				if (!$(this).parents('tr').hasClass('exclude_hide')) {
+					$(this).parents('tr').addClass('exclude_hide');
+				}
+			}
+		});
+	})
+}
 
