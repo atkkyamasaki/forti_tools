@@ -194,3 +194,19 @@ function excludeStringsFilter () {
 	})
 }
 
+
+
+
+// Date Time Filter
+// 参考 URL
+// https://qiita.com/yasuken/items/f789e19d02df34c024a3
+
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+
+
+
+
+
+

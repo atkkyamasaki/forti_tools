@@ -5,8 +5,14 @@
 {% block body %}
 <link rel="stylesheet" href="/css/LogIntegrate/main.css">
 <link rel="stylesheet" href="/css/LogIntegrate/table_view.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" />
 <script src="/js/LogIntegrate/table_view.js"></script>
 <script src="/js/LogIntegrate/event_log.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="/vendor/bootstrap-datetimepicker/moment-with-locales.min.js"></script>
+<script src="/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
 <div class="container_title">
     <h1><i class="fa fa-tachometer" aria-hidden="true"></i>Log Integration Tool</h1>
@@ -78,6 +84,23 @@
 <div class="hide_data hide">
 	<div id="id">{{ id }}</div>
 </div>
+
+
+
+        <div class="container">
+            <div class="row">
+                <div class='col-sm-6'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 {% endblock %}
