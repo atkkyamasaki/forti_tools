@@ -90,7 +90,7 @@ $(function () {
 		});
 	});
 
-	// Filter Windows 閉じる
+	// Filter Window 閉じる
 	var closeBtn = '#select_filter_window_close';
 
 	$(closeBtn).on('click', function(){
@@ -101,6 +101,34 @@ $(function () {
 	});
 });
 
+
+// Date Time Filter
+// 参考 URL
+// https://qiita.com/yasuken/items/f789e19d02df34c024a3
+
+
+
+$(function () {
+
+	// Date Time Filter Window 開く
+	var motalElement = $('.container_time_filter_window,#container_modal_overlay');
+
+    $('.time_filter_menu').on('click', function(){
+        motalElement.css('display', 'block');
+	});
+
+
+	// Date Time Filter の実行
+    $('#datetimepicker_start').datetimepicker();
+
+
+	// Filter Window 閉じる
+	var closeBtn = '#select_time_filter_window_close';
+
+	$(closeBtn).on('click', function(){
+		motalElement.css('display', 'none');
+	});
+});
 
 
 // 検索、除外ワード Filter
@@ -197,13 +225,7 @@ function excludeStringsFilter () {
 
 
 
-// Date Time Filter
-// 参考 URL
-// https://qiita.com/yasuken/items/f789e19d02df34c024a3
 
-            $(function () {
-                $('#datetimepicker1').datetimepicker();
-            });
 
 
 

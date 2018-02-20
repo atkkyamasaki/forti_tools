@@ -14,6 +14,11 @@
 .container_columns_filter_window .select_file_type_btn { background-color: #0275d8; color: white; box-shadow: rgba(0, 0, 0, 0.4) 2px 2px; padding: 6px; margin: 0 8px; border-radius: 4px; }
 .container_columns_filter_window .select_file_type_btn:hover { opacity: 0.8; }
 
+.container_time_filter_window { top: 320px; left: 50%; width: 400px; margin: -150px 0 0 -200px; padding: 16px; text-align: center; display: none; background: #fff; border: 1px solid black; position: absolute; z-index: 10; }
+.container_time_filter_window .control-label { float: left; }
+.container_time_filter_window .select_file_type_btn { background-color: #0275d8; color: white; box-shadow: rgba(0, 0, 0, 0.4) 2px 2px; padding: 6px; margin: 0 8px; border-radius: 4px; }
+.container_time_filter_window .select_file_type_btn:hover { opacity: 0.8; }
+
 .strings_include_filter_subject { float: left; padding: 10px 8px 0 0; }
 
 .strings_exclude_filter_subject { float: left; padding: 10px 6px 0 0; }
