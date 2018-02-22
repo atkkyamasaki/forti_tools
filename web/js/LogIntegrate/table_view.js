@@ -105,8 +105,7 @@ $(function () {
 // Date Time Filter
 // 参考 URL
 // https://qiita.com/yasuken/items/f789e19d02df34c024a3
-
-
+// https://eonasdan.github.io/bootstrap-datetimepicker/Options/
 
 $(function () {
 
@@ -117,18 +116,69 @@ $(function () {
         motalElement.css('display', 'block');
 	});
 
-
 	// Date Time Filter の実行
-    $('#datetimepicker_start').datetimepicker();
+    $('#datetimepicker_start').datetimepicker({
+    	format: 'YYYY-MM-DD HH:mm:ss',
+    	showTodayButton: true,
+    	showClear: true,
+    	showClose: true,
+    });
+    $('#datetimepicker_end').datetimepicker({
+    	useCurrent: false,
+    	format: 'YYYY-MM-DD HH:mm:ss',
+    	showTodayButton: true,
+    	showClear: true,
+    	showClose: true,
+    });
 
+    $("#datetimepicker_start").on("dp.change", function (e) {
+        $('#datetimepicker_end').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepicker_end").on("dp.change", function (e) {
+        $('#datetimepicker_start').data("DateTimePicker").maxDate(e.date);
+    });
 
-	// Filter Window 閉じる
-	var closeBtn = '#select_time_filter_window_close';
+	// Filter Window 閉じる際に Filter を実行
+	var closeBtn = '#select_time_filter_window_submit';
+
 
 	$(closeBtn).on('click', function(){
+		
+		var filterStartTime = $('input:text[name="datetimepicker_start"]').val();
+		var filterEndTime = $('input:text[name="datetimepicker_end"]').val();
+
+		doTimeFilter(filterStartTime, filterEndTime);
 		motalElement.css('display', 'none');
 	});
 });
+
+
+function doTimeFilter (start, end) {
+
+	// Unixtime で時間比較
+	var startDateUnixtime = Date.parse(start.replace(/-/g, '/'))/1000;
+	var endDateUnixtime = Date.parse(end.replace(/-/g, '/'))/1000;
+
+	// すべての Filter 条件をクリア
+	$('.time_hide').removeClass('time_hide');
+
+	$('.eventlog_custom_time').map(function() {
+		var logDate = $(this).text();
+		logDateUnixtime = Date.parse(logDate.replace(/-/g, '/'))/1000;
+
+		if (start) {
+			if (logDateUnixtime < startDateUnixtime) {
+				$(this).parents('tr').addClass('time_hide');
+			}
+		}
+
+		if(end) {
+			if (logDateUnixtime > endDateUnixtime) {
+				$(this).parents('tr').addClass('time_hide');
+			}
+		}
+	});
+}
 
 
 // 検索、除外ワード Filter

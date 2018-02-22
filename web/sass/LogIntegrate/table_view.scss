@@ -109,6 +109,7 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 
 	.control-label {
 		float: left;
+		font-weight: bold;
 	}
 
     .select_file_type_btn {
@@ -123,6 +124,16 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 			opacity: 0.8;
 		}
     }
+
+    #datetimepicker_start,
+    #datetimepicker_end {
+    	@import "bootstrap_337";
+
+    	> span > .fa-calendar {
+			margin: -5px;
+    	}
+    }
+
 }
 
 
@@ -218,7 +229,8 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 		}
 
 		.include_hide,
-		.exclude_hide {
+		.exclude_hide,
+		.time_hide {
 			display: none;
 		}
 
