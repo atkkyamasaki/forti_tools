@@ -98,6 +98,7 @@ $(function() {
         var id = $('#id').text();
         var uploadFirmware = $('[name="upload_firmware"]').val();
         var uploadFile = $('[name="upload_file"]').val();
+        var uploadMemo = $('[name="upload_memo"]').val();
         var count = $('body > div.container_result > div > p').length + 1;
 
         motalElement.css('display', 'none');
@@ -109,6 +110,7 @@ $(function() {
                 'id': id,
                 'firmware': uploadFirmware,
                 'file': uploadFile,
+                'memo': uploadMemo,
                 'count': count,
             },
             success: function (data) {

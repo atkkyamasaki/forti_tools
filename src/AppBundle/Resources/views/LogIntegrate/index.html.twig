@@ -20,12 +20,26 @@
 	<p>Firmware : 
 		<select name="upload_firmware">
 		<option value="545">5.4.5</option>
+		<option value="546">5.4.6</option>
+		<option value="547">5.4.7</option>
+		<option value="548">5.4.8</option>
+		<option value="560">5.6.0</option>
+		<option value="561">5.6.1</option>
+		<option value="562">5.6.2</option>
+		<option value="563">5.6.3</option>
 		</select>
 	</p>
 	<p>File Type : 
 		<select name="upload_file">
-		<option value="event">Event Log</option>
+		<option value="event">System Events Log</option>
+		<option value="traffic_forward">Forward Traffic Log</option>
+		<option value="traffic_local">Local Traffic Log</option>
+		<option value="router">Router Log</option>
+		<option value="vpn">VPN Log</option>
 		</select>
+	</p>
+	<p>Note : 
+		<input type="text" name="upload_memo">
 	</p>
 	<p>
 		<span id="select_file_type_submit" class="select_file_type_btn">Submit</span>

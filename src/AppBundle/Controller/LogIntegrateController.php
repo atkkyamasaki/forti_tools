@@ -61,6 +61,7 @@ class LogIntegrateController extends Controller
             $id = $_POST["id"];
             $firmware = $_POST["firmware"];
             $file = $_POST["file"];
+            $memo = $_POST["memo"];
             $count = $_POST["count"];
         }
 
@@ -84,7 +85,7 @@ class LogIntegrateController extends Controller
         $result = $this->fileWriteTypeSelector($id, $file, $firmware, $logFilePath, $margeFilePath, $count);
 
         // フィルタ用の HTML ボタンを作成
-        $resultHtmlFilterBtn = $this->createHtmlFilterBtn($id, $file, $firmware, $count, $htmlFilterFilePath);
+        $resultHtmlFilterBtn = $this->createHtmlFilterBtn($id, $file, $firmware, $memo, $count, $htmlFilterFilePath);
 
         return new JsonResponse([
             'status' => $id . $firmware . $file .$count,
@@ -230,9 +231,9 @@ class LogIntegrateController extends Controller
      * @param string $htmlFilterFilePath
      * @return string
      */
-    private function createHtmlFilterBtn($id, $file, $firmware, $count, $htmlFilterFilePath)
+    private function createHtmlFilterBtn($id, $file, $firmware, $memo, $count, $htmlFilterFilePath)
     {
-        $htmlFilterBtn = '<p><input type="checkbox" name="cbfilter_' . $count . '" id="cbfilter_' . $count . '" value="1" class="cbfilter cbfilter_' . $count . '" checked="checked"><label for="cbfilter_' . $count . '">' . $count . ':' . $file . '</label></p>';
+        $htmlFilterBtn = '<p><input type="checkbox" name="cbfilter_' . $count . '" id="cbfilter_' . $count . '" value="1" class="cbfilter cbfilter_' . $count . '" checked="checked"><label for="cbfilter_' . $count . '">' . $count . ':' . $file . '</label><span>' . $memo . ' (Version.' . $firmware . ')</span></p>';
 
         file_put_contents($htmlFilterFilePath, $htmlFilterBtn . PHP_EOL, FILE_APPEND);
 
