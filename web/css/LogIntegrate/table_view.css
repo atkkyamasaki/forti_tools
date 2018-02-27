@@ -1,3 +1,8 @@
+@charset "UTF-8";
+@keyframes fadeIn { 0% { opacity: 0; }
+  100% { opacity: 1; } }
+@-webkit-keyframes fadeIn { 0% { opacity: 0; }
+  100% { opacity: 1; } }
 .container_title { height: 40px; }
 .container_title > h1 { float: left; }
 .container_title ul { float: right; font-size: 0px; }
@@ -1487,5 +1492,12 @@
 .container_result table .target-allinfo { cursor: pointer; }
 .container_result table .target-allinfo:hover { opacity: 0.8; }
 .container_result table .target-allinfo > i { font-size: 16px; }
-.container_result table .column_allinfo { background-color: white; }
+.container_result table .column_allinfo { background-color: white; animation: fadeIn 0.5s ease 0s 1 normal; -webkit-animation: fadeIn 0.5s ease 0s 1 normal; }
 .container_result table .include_hide, .container_result table .exclude_hide, .container_result table .time_hide { display: none; }
+
+/* ページトップへ戻るボタン用 */
+#page-top a { padding: 10px 0; }
+
+.page_top_bottom { position: fixed; right: 20px; font-size: 77%; opacity: 0.8; }
+.page_top_bottom a { background: #666; text-decoration: none; color: #fff; width: 100px; padding: 10px 0; text-align: center; display: block; border-radius: 5px; }
+.page_top_bottom a:hover { text-decoration: none; background: #999; }

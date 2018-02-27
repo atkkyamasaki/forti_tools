@@ -17,6 +17,11 @@ $(function () {
 			} else {
 				$('.container_result > table .' + value).addClass('hide');
 			}
+
+			$('.all_loading').removeClass('hide');
+			setTimeout( function() {
+				$('.all_loading').addClass('hide');
+			}, 500);
 		});
 	});
 
@@ -149,6 +154,12 @@ $(function () {
 
 		doTimeFilter(filterStartTime, filterEndTime);
 		motalElement.css('display', 'none');
+
+		$('.all_loading').removeClass('hide');
+		setTimeout( function() {
+			$('.all_loading').addClass('hide');
+		}, 500);
+
 	});
 });
 
@@ -276,9 +287,76 @@ function excludeStringsFilter () {
 
 
 
+// Table のソート
+// 参考 URL
+// https://beiznotes.org/install-tablesorter/
+
+$(function () {
+	$('#logs_table').tablesorter();
+
+	$('#sort_date').click();
+	$('th').hide();
+});
 
 
 
 
+// ページトップへ戻るボタン
 
+$(function() {
+	$('body').after('<p id="page-top" class="page_top_bottom"><a href="#wrap">PAGE TOP</a></p>');
+	$('body').after('<p id="page-bottom" class="page_top_bottom"><a href="#wrap">PAGE BOTTOM</a></p>');
+});
+
+$(function() {
+    var topshowFlag = false;
+    var bottomshowFlag = false;
+    var topBtn = $('#page-top');
+    var bottomBtn = $('#page-bottom');
+    topBtn.css('bottom', '-100px');
+    bottomBtn.css('bottom', '-100px');
+
+    var topshowFlag = false;
+    $(window).scroll(function () {
+    	if ($(this).scrollTop() > 200) {
+    	    if (topshowFlag == false) {
+    	        topshowFlag = true;
+    	        topBtn.stop().animate({'bottom' : '62px'}, 200); 
+    	    }
+    	} else {
+    	    if (topshowFlag) {
+    	      topshowFlag = false;
+    	      topBtn.stop().animate({'bottom' : '-100px'}, 200); 
+    	    }
+    	}
+    });
+    topBtn.click(function () {
+        $('body,html').animate({
+          scrollTop: 0
+    	}, 500);
+    	return false;
+  	});
+
+    var bottomshowFlag = false;
+    $(window).scroll(function () {
+    	if (1200 < $(document).height() - $(this).scrollTop()) {
+    	    if (bottomshowFlag == false) {
+    	        bottomshowFlag = true;
+    	        bottomBtn.stop().animate({'bottom' : '20px'}, 200); 
+    	    }
+    	} else {
+    	    if (bottomshowFlag) {
+    	      bottomshowFlag = false;
+    	      bottomBtn.stop().animate({'bottom' : '-100px'}, 200); 
+    	    }
+    	}
+    });
+    bottomBtn.click(function () {
+        $('body,html').animate({
+          scrollTop: $(document).height()
+    	}, 500);
+    	return false;
+  	});
+
+});
 

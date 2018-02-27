@@ -3,6 +3,17 @@ $bkcolor_1_opacity : rgba(102, 255, 102, 0.3);
 $bkcolor_2 : #FF77FF; // ピンク
 $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 
+@keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+
 .container_title {
     height: 40px;
 
@@ -226,6 +237,9 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 
 		.column_allinfo {
 			background-color: white;
+		    animation: fadeIn 0.5s ease 0s 1 normal;
+    		-webkit-animation: fadeIn 0.5s ease 0s 1 normal;
+
 		}
 
 		.include_hide,
@@ -236,3 +250,38 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 
 	}
 }
+
+
+/* ページトップへ戻るボタン用 */
+#page-top {
+	a {
+		padding: 10px 0;
+	}
+}
+
+.page_top_bottom {
+    position: fixed;
+    right: 20px;
+    font-size: 77%;
+    opacity: 0.8;
+
+    a {
+	    background: #666;
+	    text-decoration: none;
+	    color: #fff;
+	    width: 100px;
+	    padding: 10px 0;
+	    text-align: center;
+	    display: block;
+	    border-radius: 5px;
+
+	    &:hover {
+		    text-decoration: none;
+		    background: #999;
+	    }
+    }
+}
+
+
+
+
