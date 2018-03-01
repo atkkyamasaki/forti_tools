@@ -36,7 +36,7 @@
 }
  
 #tab_display > ul > li > a {
-    font-weight: bold;
+    // font-weight: bold;
     color: white;
     text-decoration: none;
     display: block;
@@ -66,6 +66,10 @@
 /* Tab1 用 */
 .container_ticket {
     min-width: 1250px;
+}
+
+.container_ticket th {
+    font-weight: normal;
 }
 
 .container_ticket .hedder_icon {
@@ -193,6 +197,7 @@
 
 #table_person thead th {
     border: 1px solid;
+    font-weight: normal;
 }
 
 #table_person th:nth-child(2) {
@@ -220,6 +225,9 @@
     padding: 0 4px 0 0;
 }
 
+.table_tac_name {
+    cursor: pointer;
+}
 .table_tac_name:hover {
     opacity: 0.5;
 }
@@ -230,6 +238,10 @@
     border-radius: 4px;
     padding: 10px;
     background-color: white;
+}
+
+.assignee_status p {
+    padding: 4px;
 }
 
 .assignee_statu_close_icon {
