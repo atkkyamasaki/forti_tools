@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" />
 <script src="/js/LogIntegrate/table_view.js"></script>
 <script src="/js/LogIntegrate/event_log.js"></script>
+<script src="/js/LogIntegrate/forwardtraffic_log.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="/vendor/bootstrap-datetimepicker/moment-with-locales.min.js"></script>
@@ -29,10 +30,11 @@
 
 <div class="container_columns_filter_window">
 	{% for filter_type_key,filter_type_value in reuslt_column_filter_array%}
-		<div class="columns_filter_type_{{ filter_type_key }}">{{ filter_type_key }}</div>
+		<div class="columns_filter_type_{{ filter_type_key }} hide"><div>{{ filter_type_key }}</div>
 		{% for filter_column in filter_type_value %}
-			<p class="column_filter"><input type="checkbox" name="column_filter_{{ filter_column }}" id="column_filter_{{ filter_column }}"><label for="column_filter_{{ filter_column }}">{{ filter_column }}</label></p>
+			<p class="column_filter"><input type="checkbox" name="{{ filter_type_key }}_column_filter_{{ filter_column }}" id="{{ filter_type_key }}_column_filter_{{ filter_column }}"><label for="{{ filter_type_key }}_column_filter_{{ filter_column }}">{{ filter_column }}</label></p>
 		{% endfor %}
+		</div>
 	{% endfor %}
 	<p style="clear: both"></p>
 	<span id="select_filter_window_close" class="select_file_type_btn">Close</span>

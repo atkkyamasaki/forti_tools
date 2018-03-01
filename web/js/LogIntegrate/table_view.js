@@ -83,6 +83,7 @@ $(function () {
 
 	var filterTypes = [
 		'columns_filter_type_event',
+		'columns_filter_type_forwardtraffic',
 	]
 
 	var motalElement = $('.container_columns_filter_window,#container_modal_overlay');
@@ -100,7 +101,7 @@ $(function () {
 
 	$(closeBtn).on('click', function(){
 		$.each(filterTypes, function(index, value) {
-		    $('#' + value).addClass('hide');
+		    $('.' + value).addClass('hide');
 		});
 		motalElement.css('display', 'none');
 	});

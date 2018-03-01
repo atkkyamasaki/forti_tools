@@ -77,7 +77,7 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
     position: absolute;
     z-index: 10;
 
-	> div {
+	> div > div {
 		font-size: 1.5em;
 	    border-bottom: 2px solid #0275d8;
 	    margin-bottom: 16px;

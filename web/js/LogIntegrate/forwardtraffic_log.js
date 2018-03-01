@@ -1,9 +1,9 @@
 $(function () {
 
 	// Default のテーブル表示の Column を定義
-	var msg = '.eventlog_msg';
-	var customTime = '.eventlog_custom_time';
-	var allInfo = '.eventlog_allinfo' ;
+	var msg = '.forwardtrafficlog_action';
+	var customTime = '.forwardtrafficlog_custom_time';
+	var allInfo = '.forwardtrafficlog_allinfo' ;
 
 	var defalutDisplayElement = [
 		msg,
@@ -16,9 +16,9 @@ $(function () {
 	});
 
 	// Default の Column Filter の定義
-	var msg = '#event_column_filter_msg';
-	var customTime = '#event_column_filter_custom_time';
-	var allInfo = '#event_column_filter_allinfo' ;
+	var msg = '#forwardtraffic_column_filter_action';
+	var customTime = '#forwardtraffic_column_filter_custom_time';
+	var allInfo = '#forwardtraffic_column_filter_allinfo' ;
 
 	$(msg).prop('checked', true);
 
@@ -29,7 +29,7 @@ $(function () {
 	var targetElement = '.container_columns_filter_window p > input';
 
 	$(targetElement).on('click', function(){
-		var targetColumn = $(this).attr('id').replace('event_column_filter_', 'eventlog_');
+		var targetColumn = $(this).attr('id').replace('forwardtraffic_column_filter_', 'forwardtrafficlog_');
 		$('.' + targetColumn).toggleClass('hide');
 	});
 
