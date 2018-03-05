@@ -111,11 +111,15 @@ class LogIntegrateController extends Controller
 
         switch($file) {
             case 'event':
-                $LogWriteTypeService->writeTypeEventlog($id, $firmware, $logFilePath, $margeFilePath, $count);
+                $LogWriteTypeService->writeTypelog('event', $id, $firmware, $logFilePath, $margeFilePath, $count);
                 break;
 
             case 'forwardtraffic':
-                $LogWriteTypeService->writeTypeForwardTrafficlog($id, $firmware, $logFilePath, $margeFilePath, $count);
+                $LogWriteTypeService->writeTypelog('forwardtraffic', $id, $firmware, $logFilePath, $margeFilePath, $count);
+                break;
+
+            case 'webfilter':
+                $LogWriteTypeService->writeTypelog('webfilter', $id, $firmware, $logFilePath, $margeFilePath, $count);
                 break;
 
             default:
@@ -179,6 +183,8 @@ class LogIntegrateController extends Controller
     {
         $eventFilePath = '../web/image/LogIntegrate/' . $id . '/column_filter_event.txt';
         $forwardtrafficFilePath = '../web/image/LogIntegrate/' . $id . '/column_filter_forwardtraffic.txt';
+        $webfilterFilePath = '../web/image/LogIntegrate/' . $id . '/column_filter_webfilter.txt';
+
 
         $result = [];
         if (file_exists($eventFilePath)) {
@@ -186,6 +192,9 @@ class LogIntegrateController extends Controller
         }
         if (file_exists($forwardtrafficFilePath)) {
             $result['forwardtraffic'] = file($forwardtrafficFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        }
+        if (file_exists($webfilterFilePath)) {
+            $result['webfilter'] = file($webfilterFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         }
 
         return $result;

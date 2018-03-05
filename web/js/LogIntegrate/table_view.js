@@ -84,6 +84,7 @@ $(function () {
 	var filterTypes = [
 		'columns_filter_type_event',
 		'columns_filter_type_forwardtraffic',
+		'columns_filter_type_webfilter',
 	]
 
 	var motalElement = $('.container_columns_filter_window,#container_modal_overlay');
@@ -302,6 +303,11 @@ $(function () {
 
 
 
+
+
+
+
+
 // ページトップへ戻るボタン
 
 $(function() {
@@ -360,4 +366,6 @@ $(function() {
   	});
 
 });
+
+
 
