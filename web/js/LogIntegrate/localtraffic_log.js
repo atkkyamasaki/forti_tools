@@ -2,13 +2,13 @@ $(function () {
 
 	// Default のテーブル表示の Column を定義
 	var defalutDisplayElement = [
-		'.forwardtrafficlog_srcip',
-		'.forwardtrafficlog_srcport',
-		'.forwardtrafficlog_dstip',
-		'.forwardtrafficlog_dstport',
-		'.forwardtrafficlog_action',
-		'.forwardtrafficlog_custom_time',
-		'.forwardtrafficlog_allinfo',
+		'.localtrafficlog_srcip',
+		'.localtrafficlog_srcport',
+		'.localtrafficlog_dstip',
+		'.localtrafficlog_dstport',
+		'.localtrafficlog_action',
+		'.localtrafficlog_custom_time',
+		'.localtrafficlog_allinfo',
 	];
 
 	$.each(defalutDisplayElement, function(index, value) {
@@ -16,15 +16,15 @@ $(function () {
 	});
 
 	// Default の Column Filter の定義
-	var customTime = '#forwardtraffic_column_filter_custom_time';
-	var allInfo = '#forwardtraffic_column_filter_allinfo' ;
+	var customTime = '#localtraffic_column_filter_custom_time';
+	var allInfo = '#localtraffic_column_filter_allinfo' ;
 
 	var defalutDisplayColumn = [
-		'#forwardtraffic_column_filter_srcip',
-		'#forwardtraffic_column_filter_srcport',
-		'#forwardtraffic_column_filter_dstip',
-		'#forwardtraffic_column_filter_dstport',
-		'#forwardtraffic_column_filter_action',
+		'#localtraffic_column_filter_srcip',
+		'#localtraffic_column_filter_srcport',
+		'#localtraffic_column_filter_dstip',
+		'#localtraffic_column_filter_dstport',
+		'#localtraffic_column_filter_action',
 	];
 
 	$.each(defalutDisplayColumn, function(index, value) {
@@ -38,7 +38,7 @@ $(function () {
 	var targetElement = '.container_columns_filter_window p > input';
 
 	$(targetElement).on('click', function(){
-		var targetColumn = $(this).attr('id').replace('forwardtraffic_column_filter_', 'forwardtrafficlog_');
+		var targetColumn = $(this).attr('id').replace('localtraffic_column_filter_', 'localtrafficlog_');
 		$('.' + targetColumn).toggleClass('hide');
 	});
 

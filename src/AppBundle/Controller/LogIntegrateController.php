@@ -118,8 +118,16 @@ class LogIntegrateController extends Controller
                 $LogWriteTypeService->writeTypelog('forwardtraffic', $id, $firmware, $logFilePath, $margeFilePath, $count);
                 break;
 
+            case 'localtraffic':
+                $LogWriteTypeService->writeTypelog('localtraffic', $id, $firmware, $logFilePath, $margeFilePath, $count);
+                break;
+
             case 'webfilter':
                 $LogWriteTypeService->writeTypelog('webfilter', $id, $firmware, $logFilePath, $margeFilePath, $count);
+                break;
+
+            case 'dlp':
+                $LogWriteTypeService->writeTypelog('dlp', $id, $firmware, $logFilePath, $margeFilePath, $count);
                 break;
 
             default:
@@ -181,20 +189,21 @@ class LogIntegrateController extends Controller
      */
     private function getColumnFilterArray($id)
     {
-        $eventFilePath = '../web/image/LogIntegrate/' . $id . '/column_filter_event.txt';
-        $forwardtrafficFilePath = '../web/image/LogIntegrate/' . $id . '/column_filter_forwardtraffic.txt';
-        $webfilterFilePath = '../web/image/LogIntegrate/' . $id . '/column_filter_webfilter.txt';
-
+        $logTypes = [
+            'event',
+            'forwardtraffic',
+            'localtraffic',
+            'webfilter',
+            'dlp',
+        ];
 
         $result = [];
-        if (file_exists($eventFilePath)) {
-            $result['event'] = file($eventFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        }
-        if (file_exists($forwardtrafficFilePath)) {
-            $result['forwardtraffic'] = file($forwardtrafficFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        }
-        if (file_exists($webfilterFilePath)) {
-            $result['webfilter'] = file($webfilterFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($logTypes as $logType) {
+            $filePath = '../web/image/LogIntegrate/' . $id . '/column_filter_' . $logType . '.txt';
+
+            if (file_exists($filePath)) {
+                $result[$logType] = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            }
         }
 
         return $result;

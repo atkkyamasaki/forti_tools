@@ -1485,10 +1485,14 @@
 .container_strings_include_filter .input_string_remove:hover, .container_strings_exclude_filter .input_string_remove:hover { opacity: 0.5; color: red; cursor: pointer; }
 
 .container_result table { font-size: 10px; word-wrap: break-word; }
+.container_result table td:not(:last-child):not(:first-child) { min-width: 100px; max-width: 300px; }
 .container_result table td:nth-of-type(1) { width: 90px; }
 .container_result table td:last-of-type { width: 40px; }
 .container_result table .cbfilter_1 { background-color: rgba(102, 255, 102, 0.3); }
 .container_result table .cbfilter_2 { background-color: rgba(255, 119, 255, 0.3); }
+.container_result table .cbfilter_3 { background-color: rgba(0, 0, 255, 0.3); }
+.container_result table .cbfilter_4 { background-color: rgba(128, 128, 128, 0.3); }
+.container_result table .cbfilter_5 { background-color: rgba(128, 0, 0, 0.3); }
 .container_result table .target-allinfo { cursor: pointer; }
 .container_result table .target-allinfo:hover { opacity: 0.8; }
 .container_result table .target-allinfo > i { font-size: 16px; }

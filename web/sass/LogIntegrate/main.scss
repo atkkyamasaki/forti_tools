@@ -2,6 +2,12 @@ $bkcolor_1 : #66FF66; // 緑
 $bkcolor_1_opacity : rgba(102, 255, 102, 0.3);
 $bkcolor_2 : #FF77FF; // ピンク
 $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
+$bkcolor_3 : #0000FF; // 青
+$bkcolor_3_opacity : rgba(0, 0, 255, 0.3);
+$bkcolor_4 : #808080; // グレイ
+$bkcolor_4_opacity : rgba(128, 128, 128, 0.3);
+$bkcolor_5 : #800000; // 茶
+$bkcolor_5_opacity : rgba(128, 0, 0, 0.3);
 
 
 .container_title,
@@ -160,6 +166,15 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 	}
 	.cbfilter_2 + label {
 		background-color: $bkcolor_2;
+	}
+	.cbfilter_3 + label {
+		background-color: $bkcolor_3;
+	}
+	.cbfilter_4 + label {
+		background-color: $bkcolor_4;
+	}
+	.cbfilter_5 + label {
+		background-color: $bkcolor_5;
 	}
 
 

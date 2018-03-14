@@ -2,6 +2,13 @@ $bkcolor_1 : #66FF66; // 緑
 $bkcolor_1_opacity : rgba(102, 255, 102, 0.3);
 $bkcolor_2 : #FF77FF; // ピンク
 $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
+$bkcolor_3 : #0000FF; // 青
+$bkcolor_3_opacity : rgba(0, 0, 255, 0.3);
+$bkcolor_4 : #808080; // グレイ
+$bkcolor_4_opacity : rgba(128, 128, 128, 0.3);
+$bkcolor_5 : #800000; // 茶
+$bkcolor_5_opacity : rgba(128, 0, 0, 0.3);
+
 
 @keyframes fadeIn {
     0% {opacity: 0}
@@ -208,6 +215,11 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 		font-size: 10px;
 		word-wrap: break-word;
 
+		td:not(:last-child):not(:first-child) {
+			min-width: 100px;
+			max-width: 300px;
+		}
+
 		td:nth-of-type(1) {
 			width: 90px;
 		}
@@ -219,9 +231,17 @@ $bkcolor_2_opacity : rgba(255, 119, 255, 0.3);
 		.cbfilter_1 {
 			background-color: $bkcolor_1_opacity;
 		}
-
 		.cbfilter_2 {
 			background-color: $bkcolor_2_opacity;
+		}
+		.cbfilter_3 {
+			background-color: $bkcolor_3_opacity;
+		}
+		.cbfilter_4 {
+			background-color: $bkcolor_4_opacity;
+		}
+		.cbfilter_5 {
+			background-color: $bkcolor_5_opacity;
 		}
 		
 		.target-allinfo {

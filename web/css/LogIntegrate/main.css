@@ -27,3 +27,6 @@
 .container_operate_tools .cbfilter:checked + label { opacity: 1; }
 .container_operate_tools .cbfilter_1 + label { background-color: #66FF66; }
 .container_operate_tools .cbfilter_2 + label { background-color: #FF77FF; }
+.container_operate_tools .cbfilter_3 + label { background-color: #0000FF; }
+.container_operate_tools .cbfilter_4 + label { background-color: #808080; }
+.container_operate_tools .cbfilter_5 + label { background-color: #800000; }

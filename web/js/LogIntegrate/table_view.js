@@ -4,10 +4,16 @@ $(function () {
 
 	var cbFilter1 = 'cbfilter_1';
 	var cbFilter2 = 'cbfilter_2';
+	var cbFilter3 = 'cbfilter_3';
+	var cbFilter4 = 'cbfilter_4';
+	var cbFilter5 = 'cbfilter_5';
 
 	var cbFilters = [
 		cbFilter1,
 		cbFilter2,
+		cbFilter3,
+		cbFilter4,
+		cbFilter5,
 	];
 
 	$.each(cbFilters, function(index, value) {
@@ -49,12 +55,7 @@ $(function () {
 			$(this).children('i').addClass('fa-plus-square');
 			$(this).parent('tr').next('tr').remove();
 		}
-
-
 	});
-
-
-
 });
 
 
@@ -84,7 +85,9 @@ $(function () {
 	var filterTypes = [
 		'columns_filter_type_event',
 		'columns_filter_type_forwardtraffic',
+		'columns_filter_type_localtraffic',
 		'columns_filter_type_webfilter',
+		'columns_filter_type_dlp',
 	]
 
 	var motalElement = $('.container_columns_filter_window,#container_modal_overlay');

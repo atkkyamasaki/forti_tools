@@ -1,14 +1,14 @@
 $(function () {
 
 	// Default のテーブル表示の Column を定義
-	var msg = '.eventlog_msg';
-	var customTime = '.eventlog_custom_time';
-	var allInfo = '.eventlog_allinfo' ;
-
 	var defalutDisplayElement = [
-		msg,
-		customTime,
-		allInfo,
+		'.eventlog_logid',
+		'.eventlog_type',
+		'.eventlog_subtype',
+		'.eventlog_level',
+		'.eventlog_msg',
+		'.eventlog_custom_time',
+		'.eventlog_allinfo',
 	];
 
 	$.each(defalutDisplayElement, function(index, value) {
@@ -16,11 +16,20 @@ $(function () {
 	});
 
 	// Default の Column Filter の定義
-	var msg = '#event_column_filter_msg';
 	var customTime = '#event_column_filter_custom_time';
 	var allInfo = '#event_column_filter_allinfo' ;
 
-	$(msg).prop('checked', true);
+	var defalutDisplayColumn = [
+		'#event_column_filter_logid',
+		'#event_column_filter_type',
+		'#event_column_filter_subtype',
+		'#event_column_filter_level',
+		'#event_column_filter_msg',
+	];
+
+	$.each(defalutDisplayColumn, function(index, value) {
+		$(value).prop('checked', true);
+	});
 
 	$(customTime).parent('p').css('display', 'none');
 	$(allInfo).parent('p').css('display', 'none');

@@ -1,14 +1,14 @@
 $(function () {
 
 	// Default のテーブル表示の Column を定義
-	var msg = '.webfilterlog_msg';
-	var customTime = '.webfilterlog_custom_time';
-	var allInfo = '.webfilterlog_allinfo' ;
-
 	var defalutDisplayElement = [
-		msg,
-		customTime,
-		allInfo,
+		'.webfilterlog_srcip',
+		'.webfilterlog_srcport',
+		'.webfilterlog_dstip',
+		'.webfilterlog_dstport',
+		'.webfilterlog_msg',
+		'.webfilterlog_custom_time',
+		'.webfilterlog_allinfo',
 	];
 
 	$.each(defalutDisplayElement, function(index, value) {
@@ -16,11 +16,20 @@ $(function () {
 	});
 
 	// Default の Column Filter の定義
-	var msg = '#webfilter_column_filter_msg';
 	var customTime = '#webfilter_column_filter_custom_time';
 	var allInfo = '#webfilter_column_filter_allinfo' ;
 
-	$(msg).prop('checked', true);
+	var defalutDisplayColumn = [
+		'#webfilter_column_filter_srcip',
+		'#webfilter_column_filter_srcport',
+		'#webfilter_column_filter_dstip',
+		'#webfilter_column_filter_dstport',
+		'#webfilter_column_filter_msg',
+	];
+
+	$.each(defalutDisplayColumn, function(index, value) {
+		$(value).prop('checked', true);
+	});
 
 	$(customTime).parent('p').css('display', 'none');
 	$(allInfo).parent('p').css('display', 'none');
