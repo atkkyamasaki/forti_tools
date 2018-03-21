@@ -126,7 +126,7 @@ class LogWriteTypeService
                 $logString .= $value;
                 $logString .= '</td>';
             } else {
-                $logString .= '<td class="hide '  . $logType . 'log_allinfo target-allinfo"><i class="fa fa-plus-square"></i><span>' . preg_replace('/\n|\r|\r\n/', '', $value) . '<span></td></tr>';
+                $logString .= '<td class="hide '  . $logType . 'log_allinfo target-allinfo"><i class="fa fa-plus-square"></i><span>' . preg_replace('/\n|\r|\r\n/', '', $value) . '</span></td></tr>';
             }
         }
 
