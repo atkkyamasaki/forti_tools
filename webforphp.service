@@ -1,0 +1,12 @@
+[Unit]
+Description = Web Server for php daemon
+
+[Service]
+ExecStart = /home/fortinet_tacjp/forti_tools/webforphp start
+Restart = always
+Type = forking
+
+Environment="HOME=/home/fortinet_tacjp"
+
+[Install]
+WantedBy = multi-user.target
