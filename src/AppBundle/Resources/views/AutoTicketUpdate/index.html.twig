@@ -16,6 +16,7 @@
         <li><a href="#tab2" id="tab2_a" class="">TAC Status</a></li>
         <li><a href="#tab3" id="tab3_a" class="">Logs</a></li>
     </ul>
+
     <div id="contents">
         <div id="tab1">
             <div class="container_ticket">
@@ -99,6 +100,9 @@
                         <button type="button" id="auto_assign" class="script_submit_button">Auto Assign<i class="fa fa-user-plus button_icon" aria-hidden="true"></i></button>
                         <span> / </span>
                         <button type="button" id="case_move" class="script_submit_button">Case Move<i class="fa fa-cog button_icon" aria-hidden="true"></i></button>
+                        {% if case_mover_status == 'error' %}
+                        <span class="case_mover_status"><i class="fa fa-exclamation-triangle"></i>Not done Case Mover</span>
+                        {% endif %}
                     </div>
                     <div>
                         <span>Next Assigner Check :  </span><button type="submit" id="next_assign" class="script_submit_button">Update<i class="fa fa-refresh button_icon" aria-hidden="true"></i></button>

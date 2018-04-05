@@ -177,7 +177,13 @@
     color: red;
 }
 
+.case_mover_status {
+    color: orange;
+}
 
+.case_mover_status > i{
+    margin: 0 4px 0 8px;
+}
 
 /* Tab2 用 */
 .container_person {

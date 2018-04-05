@@ -32,12 +32,19 @@ class AutoTicketUpdateController extends Controller
         $pool0List = $pool0Repository->findBy([], ['id' => 'ASC']);
         $pool0 = $this->toArray($pool0List);
 
+        $status = 'successful';
+        foreach ($pool0 as $value) {
+            if($value['mvComp'] != 1) {
+                $status = 'error';
+            }
+        }
 
         $logFilePath = '../src/AppBundle/Resources/config/AutoTicketUpdate/logs.csv';
 
         return $this->render('AppBundle:AutoTicketUpdate:index.html.twig', [
-            'assignee' => $assigneeList,
+            'assignee' => $assignee,
             'pool0' => $pool0,
+            'case_mover_status' => $status,
         ]);
 
     }
