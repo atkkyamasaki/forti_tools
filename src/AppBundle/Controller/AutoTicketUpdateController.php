@@ -48,7 +48,7 @@ class AutoTicketUpdateController extends Controller
      */
     public function nextAssignAction()
     {
-        $cmd = 'PoolMonitor.sh';
+        $cmd = '/home/fortinet_tacjp/Ticket_auto_assign_system/PoolMonitor.sh';
         exec($cmd, $output);
         $this->writeOutputLog($cmd, $output);
 
@@ -77,7 +77,7 @@ class AutoTicketUpdateController extends Controller
      */
     public function autoAssignAction()
     {
-        $cmd = 'PoolMonitor.sh -a';
+        $cmd = '/home/fortinet_tacjp/Ticket_auto_assign_system/PoolMonitor.sh -a';
         exec($cmd, $output);
         $this->writeOutputLog($cmd, $output);
 
@@ -93,7 +93,7 @@ class AutoTicketUpdateController extends Controller
      */
     public function caseMoveAction()
     {
-        $cmd = 'CaseMover.sh';
+        $cmd = '/home/fortinet_tacjp/Ticket_auto_assign_system/CaseMover.sh';
         exec($cmd, $output);
         $this->writeOutputLog($cmd, $output);
 
@@ -109,7 +109,7 @@ class AutoTicketUpdateController extends Controller
      */
     public function manualAssignCreateAction($caseId, $newUserId)
     {
-        $cmd = 'PoolMonitor.sh -f ' . $caseId . ' ' . $newUserId;
+        $cmd = '/home/fortinet_tacjp/Ticket_auto_assign_system/PoolMonitor.sh -f ' . $caseId . ' ' . $newUserId;
         exec($cmd, $output);
         $this->writeOutputLog($cmd, $output);
         
@@ -126,7 +126,7 @@ class AutoTicketUpdateController extends Controller
      */
     public function manualAssignUpdateAction($caseId, $oldUserId, $newUserId)
     {
-        $cmd = 'PoolMonitor.sh -s ' . $caseId . ' ' . $oldUserId . ' ' . $newUserId;
+        $cmd = '/home/fortinet_tacjp/Ticket_auto_assign_system/PoolMonitor.sh -s ' . $caseId . ' ' . $oldUserId . ' ' . $newUserId;
         exec($cmd, $output);
         $this->writeOutputLog($cmd, $output);
         
@@ -144,7 +144,7 @@ class AutoTicketUpdateController extends Controller
      */
     public function caseDeleteAction($caseId)
     {
-        $cmd = 'PoolMonitor.sh -r ' . $caseId;
+        $cmd = '/home/fortinet_tacjp/Ticket_auto_assign_system/PoolMonitor.sh -r ' . $caseId;
         exec($cmd, $output);
         $this->writeOutputLog($cmd, $output);
 
@@ -194,7 +194,7 @@ class AutoTicketUpdateController extends Controller
         // $user->setDa($da);
         // $em->flush();
 
-        $cmd = 'PTO_add.sh ' . $userId . ' ' . $pto . ' ' . $da;
+        $cmd = '/home/fortinet_tacjp/Ticket_auto_assign_system/PTO_add.sh ' . $userId . ' ' . $pto . ' ' . $da;
         exec($cmd, $output);
         $this->writeOutputLog($cmd, $output);
 
