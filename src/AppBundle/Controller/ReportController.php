@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use JMS\Serializer\SerializationContext;
 use ZipArchive;
 
 /**
@@ -42,6 +44,38 @@ class ReportController extends Controller
             'images' => $images,
         ]);
     }
+
+    /**
+     * @Route("/{version}/api/{feature}")
+     * @Method({"GET"})
+     */
+    public function reportApiAction($product, $version, $feature)
+    {
+        if (!file_exists('../src/AppBundle/Resources/config/' . $product . '/' . $version . '/result.json')) {
+            return new JsonResponse([
+                'feature' => 'There ara no result.json file in this product directory.',
+                'status' => 'error',
+            ]);
+        }
+
+        $data = $this->getCucumberJson($product, $version);
+        $resultSummary = $this->getSummary($data);
+        $senarioSummary = $resultSummary['senario_summary'];
+        $featureSummary = $this->getFeatureSummary($senarioSummary);
+
+        $result = $featureSummary[$feature];
+        if ($result['failed'] || $result['pending'] || $result['skipped']) {
+            $status = 'error';
+        } else {
+            $status = 'successful';
+        }
+
+        return new JsonResponse([
+            'feature' => $result,
+            'status' => $status,
+        ]);
+    }
+
 
     /**
      * @Route("/{version}/download")
