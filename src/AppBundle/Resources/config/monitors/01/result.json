@@ -1,0 +1,168 @@
+[
+  {
+    "uri": "features/searchsupport.feature",
+    "id": "searchsupport",
+    "keyword": "Feature",
+    "name": "searchsupport",
+    "description": "",
+    "line": 1,
+    "elements": [
+      {
+        "id": "searchsupport;access",
+        "keyword": "Scenario",
+        "name": "Access",
+        "description": "",
+        "line": 3,
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Then ",
+            "name": "I navigate to \"https://searchsupport.fortinet.com/default.aspx\"",
+            "line": 4,
+            "match": {
+              "location": "selenium-cucumber-3.1.5/lib/selenium-cucumber/navigation_steps.rb:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1349991576
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "I wait 5 seconds for element having id \"L_SubTitle\" to enable",
+            "line": 5,
+            "match": {
+              "location": "selenium-cucumber-3.1.5/lib/selenium-cucumber/progress_steps.rb:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 64688172
+            }
+          }
+        ]
+      },
+      {
+        "id": "searchsupport;login",
+        "keyword": "Scenario",
+        "name": "Login",
+        "description": "",
+        "line": 8,
+        "type": "scenario",
+        "comments": [
+          {
+            "value": "# Then I take screenshot",
+            "line": 6
+          }
+        ],
+        "steps": [
+          {
+            "keyword": "Then ",
+            "name": "I enter \"tyamasaki\" into input field having name \"ctl00$contextHolder$Login_name\"",
+            "line": 9,
+            "match": {
+              "location": "selenium-cucumber-3.1.5/lib/selenium-cucumber/input_steps.rb:4"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 129285541
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "I enter \"ga38Q66c03\" into input field having name \"ctl00$contextHolder$Login_password\"",
+            "line": 10,
+            "match": {
+              "location": "selenium-cucumber-3.1.5/lib/selenium-cucumber/input_steps.rb:4"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 113909851
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "I take screenshot",
+            "line": 11,
+            "match": {
+              "location": "selenium-cucumber-3.1.5/lib/selenium-cucumber/screenshot_steps.rb:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 374290073
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "I click on element having name \"ctl00$contextHolder$LoginButton\"",
+            "line": 12,
+            "match": {
+              "location": "selenium-cucumber-3.1.5/lib/selenium-cucumber/click_elements_steps.rb:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1130080527
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "I wait 5 seconds for element having id \"h_Support_32_Console_ctl00_mup_i_aln\" to enable",
+            "line": 13,
+            "match": {
+              "location": "selenium-cucumber-3.1.5/lib/selenium-cucumber/progress_steps.rb:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1125711385
+            }
+          }
+        ]
+      },
+      {
+        "id": "searchsupport;check",
+        "keyword": "Scenario",
+        "name": "Check",
+        "description": "",
+        "line": 15,
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Then ",
+            "name": "element having id \"h_Support_32_Console_ctl00_mup_i_aln\" should have text as \"Advanced Search\"",
+            "line": 16,
+            "match": {
+              "location": "selenium-cucumber-3.1.5/lib/selenium-cucumber/assertion_steps.rb:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 61236547
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "I take screenshot",
+            "line": 17,
+            "match": {
+              "location": "selenium-cucumber-3.1.5/lib/selenium-cucumber/screenshot_steps.rb:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 304602970
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "I close browser",
+            "line": 18,
+            "match": {
+              "location": "selenium-cucumber-3.1.5/lib/selenium-cucumber/navigation_steps.rb:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 235630990
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

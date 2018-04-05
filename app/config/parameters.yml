@@ -1,7 +1,9 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_host: 10.130.3.202
-    database_port: 3306
+    # database_host: 10.130.3.202
+    # database_port: 3306
+    database_host: 10.130.3.185 
+    database_port: 23306
     database_name: fc0
     database_user: admin
     database_password: admin
