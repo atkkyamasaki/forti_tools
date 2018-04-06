@@ -392,7 +392,7 @@ $(function () {
 
     $.ajax({
       type: 'post',
-      url: '/' + product + '/' + version + '/download',
+      url: '/monitor/' + product + '/' + version + '/download',
       success: function (data, status, xhr) {
       },
       complete: function () {
@@ -421,7 +421,7 @@ $(document).on('change','input[name="zip_upload_btn"]',function(){
     contentType : false
   };
   $.ajax(
-    '/' + product + '/' + version + '/upload', postData
+    '/monitor/' + product + '/' + version + '/upload', postData
   ).done(function(data){
     $('#test_upload').prop("disabled", false).css({
       'background-color': '#31c8aa',
