@@ -63,11 +63,18 @@ class ReportController extends Controller
         $senarioSummary = $resultSummary['senario_summary'];
         $featureSummary = $this->getFeatureSummary($senarioSummary);
 
-        $result = $featureSummary[$feature];
-        if ($result['failed'] || $result['pending'] || $result['skipped']) {
-            $status = 'error';
+        if (array_key_exists($feature, $featureSummary)) {
+            $result = $featureSummary[$feature];
+            if ($result['failed'] || $result['pending'] || $result['skipped']) {
+                $status = 'error';
+            } else {
+                $status = 'successful';
+            }
         } else {
-            $status = 'successful';
+            return new JsonResponse([
+                'feature' => 'There ara no feature.',
+                'status' => 'error',
+            ]);
         }
 
         return new JsonResponse([
