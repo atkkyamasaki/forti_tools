@@ -34,10 +34,10 @@
                                 <th>TAC</th>
                                 <th>Model</th>
                                 <th><i class="fa fa-university hedder_icon" aria-hidden="true"></i>Company</th>
+                                <th>mv_comp</th>
+                                <th class="hide">q_group</th>
                                 <th class="hide">Assignee</th>
                                 <th style="min-width: 200px;"><i class="fa fa-user-circle-o hedder_icon" aria-hidden="true"></i>Name</th>
-                                <th class="hide">mv_comp</th>
-                                <th class="hide">q_group</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,6 +53,8 @@
                                 <td>{{ cases.tac }}</td>
                                 <td>{{ cases.model }}</td>
                                 <td>{{ cases.company }}</td>
+                                <td>{{ cases.mvComp }}</td>
+                                <td class="hide">{{ cases.qGroup }}</td>
                                 <td class="case_assignee hide">{{ cases.assignee }}</td>
                                 {% if cases.name %}
                                 <td>{{ cases.name }}
@@ -83,8 +85,6 @@
                                     </div>
                                 </td>
                                 {% endif %}
-                                <td class="hide">{{ cases.mvComp }}</td>
-                                <td class="hide">{{ cases.qGroup }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
