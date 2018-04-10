@@ -78,6 +78,7 @@ class ReportController extends Controller
         }
 
         return new JsonResponse([
+            'feature_name' => $feature,
             'feature' => $result,
             'status' => $status,
         ]);
